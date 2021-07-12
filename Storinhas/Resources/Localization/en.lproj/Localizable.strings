@@ -3,3 +3,18 @@
   Storinhas
   
 */
+
+"APP_NAME" = "Storinhas";
+
+/* Actions */
+"ACTION_SKIP" = "Skip";
+"ACTION_SAVE" = "Save";
+"ACTION_NEXT" = "Next";
+"ACTION_FINISH" = "Finish";
+
+/* Onboarding */
+"ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! Let's unleash the imagination?";
+"ONBOARDING_EXPLANATION" = "Here you can create your own stories!";
+
+/* Dialogs */
+

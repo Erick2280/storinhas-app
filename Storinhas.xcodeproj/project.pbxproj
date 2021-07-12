@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A750710C269CC5EA0009BCCF /* RenderCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710B269CC5EA0009BCCF /* RenderCanvas.swift */; };
+		A750710E269CC6880009BCCF /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710D269CC6880009BCCF /* Story.swift */; };
 		A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783924F2697715A0010BA01 /* StorinhasApp.swift */; };
 		A78392522697715A0010BA01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78392512697715A0010BA01 /* ContentView.swift */; };
 		A78392542697715C0010BA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78392532697715C0010BA01 /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A750710B269CC5EA0009BCCF /* RenderCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCanvas.swift; sourceTree = "<group>"; };
+		A750710D269CC6880009BCCF /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		A783924C2697715A0010BA01 /* Storinhas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storinhas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A783924F2697715A0010BA01 /* StorinhasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorinhasApp.swift; sourceTree = "<group>"; };
 		A78392512697715A0010BA01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 				A783925E269771960010BA01 /* Resources */,
 				A783924F2697715A0010BA01 /* StorinhasApp.swift */,
 				A78392512697715A0010BA01 /* ContentView.swift */,
+				A750710D269CC6880009BCCF /* Story.swift */,
 				A78392532697715C0010BA01 /* Assets.xcassets */,
 				A78392582697715C0010BA01 /* Info.plist */,
 				A78392552697715C0010BA01 /* Preview Content */,
@@ -128,6 +133,7 @@
 			children = (
 				A783926D269773480010BA01 /* IconButton.swift */,
 				A783926F2697736C0010BA01 /* TextButton.swift */,
+				A750710B269CC5EA0009BCCF /* RenderCanvas.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -228,12 +234,14 @@
 			files = (
 				A783926E269773480010BA01 /* IconButton.swift in Sources */,
 				A7839266269772E20010BA01 /* ChallengesView.swift in Sources */,
+				A750710C269CC5EA0009BCCF /* RenderCanvas.swift in Sources */,
 				A78392522697715A0010BA01 /* ContentView.swift in Sources */,
 				A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */,
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
 				A783926A269773160010BA01 /* StoryEditorView.swift in Sources */,
 				A7839264269772C90010BA01 /* StoriesView.swift in Sources */,
 				A78392682697730B0010BA01 /* StoryCreationAssistantView.swift in Sources */,
+				A750710E269CC6880009BCCF /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
