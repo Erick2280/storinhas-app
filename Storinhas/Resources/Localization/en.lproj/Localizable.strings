@@ -11,10 +11,16 @@
 "ACTION_SAVE" = "Save";
 "ACTION_NEXT" = "Next";
 "ACTION_FINISH" = "Finish";
+"ACTION_START" = "Start";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! Let's unleash the imagination?";
 "ONBOARDING_EXPLANATION" = "Here you can create your own stories!";
 
 /* Dialogs */
-
+"CHALLENGES_DAILYCHALLENGE" = "Daily challenge";
+"CHALLENGES_DAILYCHALLENGEDESCRIPTION" = "Create your first story!";
+"CHALLENGES_WARNING" = "To complete this challenge, you'll have to:";
+"CHALLENGE_REQUIREMENT1" = "Use your favorite background";
+"CHALLENGE_REQUIREMENT2" = "Use at least two different characters";
+"CHALLENGE_REQUIREMENT3" = "Name your story";

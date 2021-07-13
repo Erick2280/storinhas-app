@@ -11,10 +11,16 @@
 "ACTION_SAVE" = "Salvar";
 "ACTION_NEXT" = "Próximo";
 "ACTION_FINISH" = "Concluir";
+"ACTION_START" = "Começar";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! Bora soltar a imaginação?";
 "ONBOARDING_EXPLANATION" = "Aqui você pode criar suas próprias histórias!";
 
 /* Dialogs */
-
+"CHALLENGES_DAILYCHALLENGE" = "Desafio do dia";
+"CHALLENGES_DAILYCHALLENGEDESCRIPTION" = "Crie a sua primeira história!";
+"CHALLENGES_WARNING" = "Para completar o desafio, você vai precisar:";
+"CHALLENGE_REQUIREMENT1" = "Usar o cenário que você mais gosta";
+"CHALLENGE_REQUIREMENT2" = "Usar pelo menos dois personagens diferentes";
+"CHALLENGE_REQUIREMENT3" = "Dar um nome à sua história";
