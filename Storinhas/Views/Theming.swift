@@ -10,9 +10,9 @@ import SwiftUI
 
 struct Theming {
     struct fonts {
-        static let title = Font.custom("Londrina Solid", size: 32.0)
-        static let body = Font.custom("Londrina Solid", size: 16.0)
-        static let button = Font.custom("Londrina Solid", size: 24.0)
+        static let title = Font.custom("Londrina Solid", size: 48.0)
+        static let body = Font.custom("Londrina Solid", size: 32.0)
+        static let button = Font.custom("Londrina Solid", size: 36.0)
     }
 
     struct gradients {

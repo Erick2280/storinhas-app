@@ -10,7 +10,7 @@ import SwiftUI
 struct ChallengesView: View {
     
     @ObservedObject var manager: Manager = Manager()
-
+    
     let data = Array(1...10)
     
     let layout = [
@@ -23,14 +23,18 @@ struct ChallengesView: View {
         
         NavigationView {
             
-            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: UIScreen.main.bounds.height / 17) {
+            VStack(alignment: .center, spacing: UIScreen.main.bounds.height / 17) {
                 
                 
                 NavigationLink(
-                    destination: getDestination(),
+                    destination: AnyView(ChallengeDetailsView()),
                     label: {
                         DailyChallengeButton(imagemPersonagem: "Coelhinho")
+                            .onTapGesture {
+                                manager.nextView = true
+                            }
                     })
+                
                 
                 Spacer()
                 
@@ -38,7 +42,7 @@ struct ChallengesView: View {
                     
                     ForEach(data, id: \.self) { item in
                         HStack(alignment: .center, spacing: UIScreen.main.bounds.height / 25) {
-
+                            
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.height / 8.2, height: UIScreen.main.bounds.height / 8.2, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .cornerRadius(20)
@@ -50,28 +54,33 @@ struct ChallengesView: View {
                     Spacer()
                 }
                 .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 15, bottom: UIScreen.main.bounds.width / 11, trailing: 0))
-
+                
                 Spacer()
             }
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $manager.nextView, content: {
+            AnyView(ChallengeDetailsView())
+        })
         
         
         
     }
     
     func getDestination() -> AnyView {
+        
         return AnyView(ChallengeDetailsView())
     }
     
 }
 
 class Manager: ObservableObject {
+    
     @Published var nextView: Bool = false
-
+    
 }
 
 

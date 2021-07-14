@@ -19,7 +19,7 @@
 
 /* Dialogs */
 "CHALLENGES_DAILYCHALLENGE" = "Desafio do dia";
-"CHALLENGES_DAILYCHALLENGEDESCRIPTION" = "Crie a sua primeira história!";
+"CHALLENGES_DAILYCHALLENGETITLE" = "Crie a sua primeira história!";
 "CHALLENGES_WARNING" = "Para completar o desafio, você vai precisar:";
 "CHALLENGE_REQUIREMENT1" = "Usar o cenário que você mais gosta";
 "CHALLENGE_REQUIREMENT2" = "Usar pelo menos dois personagens diferentes";

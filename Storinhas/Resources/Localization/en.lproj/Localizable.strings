@@ -19,7 +19,7 @@
 
 /* Dialogs */
 "CHALLENGES_DAILYCHALLENGE" = "Daily challenge";
-"CHALLENGES_DAILYCHALLENGEDESCRIPTION" = "Create your first story!";
+"CHALLENGES_DAILYCHALLENGETITLE" = "Create your first story!";
 "CHALLENGES_WARNING" = "To complete this challenge, you'll have to:";
 "CHALLENGE_REQUIREMENT1" = "Use your favorite background";
 "CHALLENGE_REQUIREMENT2" = "Use at least two different characters";

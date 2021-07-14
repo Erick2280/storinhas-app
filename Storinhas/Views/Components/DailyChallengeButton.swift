@@ -18,6 +18,7 @@ struct DailyChallengeButton: View {
             ZStack {
                 
                 Rectangle()
+                    .fill(Theming.gradients.sunrise)
                     .frame(width: UIScreen.main.bounds.height / 1.3, height: UIScreen.main.bounds.height / 4.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .cornerRadius(25)
                 
@@ -28,7 +29,8 @@ struct DailyChallengeButton: View {
                 
                 VStack(alignment: .leading, spacing: nil, content: {
                     Text("CHALLENGES_DAILYCHALLENGE")
-                        .font(.custom("LondrinaSolid-Regular", size: 44))
+                        .font(Theming.fonts.title)
+                        .tracking(3)
                         .foregroundColor(.white)
                         .lineLimit(1)
                         .multilineTextAlignment(.leading)
@@ -36,7 +38,7 @@ struct DailyChallengeButton: View {
                         .padding(.bottom)
                         
                         
-                    Text("CHALLENGES_DAILYCHALLENGEDESCRIPTION")
+                    Text("CHALLENGES_DAILYCHALLENGETITLE")
                         .fixedSize(horizontal: true, vertical: false)
                         .lineLimit(1)
                         .font(.custom("SF-Pro-Rounded-Regular", size: 32))
