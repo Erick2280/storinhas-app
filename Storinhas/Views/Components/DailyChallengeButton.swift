@@ -9,13 +9,12 @@ import SwiftUI
 
 struct DailyChallengeButton: View {
     
-
     var imagemPersonagem: String
     
     var body: some View {
         
         
-        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+        Button(action: {} , label: {
             ZStack {
                 
                 Rectangle()
@@ -27,22 +26,24 @@ struct DailyChallengeButton: View {
                     .offset(x: UIScreen.main.bounds.width / 2.5, y: -UIScreen.main.bounds.height / 30)
 //                    .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 1.3, bottom: UIScreen.main.bounds.width / 11, trailing: 0))
                 
-                VStack {
+                VStack(alignment: .leading, spacing: nil, content: {
                     Text("CHALLENGES_DAILYCHALLENGE")
                         .font(.custom("LondrinaSolid-Regular", size: 44))
                         .foregroundColor(.white)
+                        .lineLimit(1)
                         .multilineTextAlignment(.leading)
                         .padding(.trailing, UIScreen.main.bounds.width / 1.85)
                         .padding(.bottom)
                         
                         
                     Text("CHALLENGES_DAILYCHALLENGEDESCRIPTION")
+                        .fixedSize(horizontal: true, vertical: false)
+                        .lineLimit(1)
                         .font(.custom("SF-Pro-Rounded-Regular", size: 32))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.leading)
                         .padding(.trailing, UIScreen.main.bounds.width / 1.54)
-                        
-                }
+                })
                 .frame(width: UIScreen.main.bounds.height / 1.45, height: UIScreen.main.bounds.height / 5, alignment: .leading)
                 .padding(.bottom)
 
@@ -57,7 +58,6 @@ struct DailyChallengeButton: View {
         
     }
 }
-
 
 
 

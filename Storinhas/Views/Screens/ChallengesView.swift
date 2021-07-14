@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChallengesView: View {
     
+    @ObservedObject var manager: Manager = Manager()
+
     let data = Array(1...10)
     
     let layout = [
@@ -25,7 +27,7 @@ struct ChallengesView: View {
                 
                 
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: getDestination(),
                     label: {
                         DailyChallengeButton(imagemPersonagem: "Coelhinho")
                     })
@@ -58,8 +60,21 @@ struct ChallengesView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         
         
+        
     }
+    
+    func getDestination() -> AnyView {
+        return AnyView(ChallengeDetailsView())
+    }
+    
 }
+
+class Manager: ObservableObject {
+    @Published var nextView: Bool = false
+
+}
+
+
 
 struct LandscapeModifier: ViewModifier {
     let height = UIScreen.main.bounds.width
