@@ -32,9 +32,13 @@ struct PageElement {
     var scale: Double
     var imagePath: ImagePath
     
-    mutating func saveOffset(x: Double, y: Double) {
+    mutating func saveTranslationOffset(x: Double, y: Double) {
         self.x += x
         self.y += y
+    }
+    
+    mutating func saveScaleOffset(scaleOffset: Double) {
+        self.scale *= scaleOffset
     }
 }
 
