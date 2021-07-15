@@ -20,9 +20,9 @@ struct PageCanvas: View {
 
     /* REVIEW:
      Apagar elemento
-     Testar scale
      Bug de elementos idênticos no mesmo lugar
      status locked se não for editável
+     Balões
     */
     
     var body: some View {
@@ -36,6 +36,8 @@ struct PageCanvas: View {
             }
 
             ZStack {
+                /* Text(getDebugText()) */
+                
                 ForEach(storyPage.elements, id: \.self) { element in
                     
                     let offset = getOffset(metrics: metrics, element: element)
@@ -89,12 +91,12 @@ struct PageCanvas: View {
                         .gesture(MagnificationGesture()
                             .onChanged { value in
                                 switch self.status {
-                                    case .idle: break
+                                    case .idle, .resizingTopElement: break
                                     default: return
                                 }
                                 
                                 withAnimation {
-                                    self.status = .resizingTopElement(scaleOffset: value / metrics.size.width)
+                                    self.status = .resizingTopElement(scaleMultiplier: value)
                                 }
                             }
                             .onEnded { _ in
@@ -112,6 +114,19 @@ struct PageCanvas: View {
     func backgroundExists() -> Bool {
         return storyPage.backgroundPath != nil
     }
+    /*
+    func getDebugText() -> String {
+        switch self.status {
+        case .holdingElement:
+            return "Holding element"
+        case .idle:
+            return "Idle"
+        case .movingTopElement(let translationX, let translationY):
+            return "Moving top element (offset: \(translationX), \(translationY))"
+        case .resizingTopElement(let scaleMultiplier):
+            return "Resizing top element (multiplier \(scaleMultiplier))"
+        }
+    } */
     
     func bringElementToTop(element: PageElement) {
         if let i = storyPage.elements.firstIndex(of: element) {
@@ -149,11 +164,11 @@ struct PageCanvas: View {
         switch self.status {
             case .holdingElement, .movingTopElement:
                 if (storyPage.elements[getTopElementIndex()] == element) {
-                    multiplier += 0.0125
+                    multiplier *= 1.1
                 }
-            case .resizingTopElement(let scaleOffset):
+            case .resizingTopElement(let scaleMultiplier):
                 if (storyPage.elements[getTopElementIndex()] == element) {
-                    multiplier += scaleOffset
+                    multiplier *= scaleMultiplier
                 }
             default: break
         }
@@ -181,9 +196,9 @@ struct PageCanvas: View {
     }
     
     func commitResize() {
-        if case .resizingTopElement(let scaleOffset) = self.status {
+        if case .resizingTopElement(let scaleMultiplier) = self.status {
             if (storyPage.elements.count > 0) {
-                storyPage.elements[getTopElementIndex()].saveScaleOffset(scaleOffset: Double(scaleOffset))
+                storyPage.elements[getTopElementIndex()].saveScaleMultiplier(scaleMultiplier: Double(scaleMultiplier))
             }
         }
     }
@@ -192,7 +207,7 @@ struct PageCanvas: View {
         case idle
         case holdingElement
         case movingTopElement(translationX: CGFloat, translationY: CGFloat)
-        case resizingTopElement(scaleOffset: CGFloat)
+        case resizingTopElement(scaleMultiplier: CGFloat)
     }
 }
 

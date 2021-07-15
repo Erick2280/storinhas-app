@@ -37,8 +37,8 @@ struct PageElement {
         self.y += y
     }
     
-    mutating func saveScaleOffset(scaleOffset: Double) {
-        self.scale *= scaleOffset
+    mutating func saveScaleMultiplier(scaleMultiplier: Double) {
+        self.scale *= scaleMultiplier
     }
 }
 
