@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ChallengeDetailsView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-       
+        
         NavigationView {
             
             ZStack {
-
+                
                 VStack {
                     
                     Text("CHALLENGES_DAILYCHALLENGE")
@@ -90,10 +93,10 @@ struct ChallengeDetailsView: View {
                                 
                             })
                             
-                            Spacer(minLength: 80)
-
+                            Spacer(minLength: UIScreen.main.bounds.height / 30)
+                            
                         }
-
+                        
                     }
                     .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 3, alignment: .center)
                     
@@ -101,13 +104,36 @@ struct ChallengeDetailsView: View {
                     
                     TextButton(text: Binding.constant("ACTION_START"), style: .primary)
                         .padding(.bottom, UIScreen.main.bounds.height / 15)
-
+                    
                 }
                 
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundColor(Color("DarkPurple"))
-                    .font(.largeTitle)
-                    .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 0.75, bottom: UIScreen.main.bounds.height / 1.4, trailing: 0))
+                HStack {
+                    
+                    Spacer()
+                    
+                    VStack {
+                        
+                        NavigationLink(
+                            destination: ChallengesView(),
+                            label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(Color("DarkPurple"))
+                                    .font(.largeTitle)
+                                    .onTapGesture {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                
+                            })
+                        Spacer()
+                        
+                    }
+                    
+                }
+                .padding(.trailing, 50)
+                
+                
+                
+                
                 
             }
             
@@ -115,7 +141,8 @@ struct ChallengeDetailsView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-       
+        
+        
     }
 }
 

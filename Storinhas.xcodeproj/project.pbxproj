@@ -25,9 +25,9 @@
 		A7839277269773F20010BA01 /* LondrinaSolid-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839273269773F10010BA01 /* LondrinaSolid-Thin.ttf */; };
 		A7839278269773F20010BA01 /* LondrinaSolid-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839274269773F20010BA01 /* LondrinaSolid-Black.ttf */; };
 		A783927B2697753A0010BA01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A783927D2697753A0010BA01 /* Localizable.strings */; };
+		A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E8B8A3269E148B008299AF /* CustomImage.swift */; };
 		E54D358C269E08B6009BC794 /* DailyChallengeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D358B269E08B6009BC794 /* DailyChallengeButton.swift */; };
 		E54D3592269E29C1009BC794 /* ChallengeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D3591269E29C1009BC794 /* ChallengeDetailsView.swift */; };
-		A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E8B8A3269E148B008299AF /* CustomImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,11 +52,11 @@
 		A7839274269773F20010BA01 /* LondrinaSolid-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LondrinaSolid-Black.ttf"; sourceTree = "<group>"; };
 		A783927C2697753A0010BA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A783927E2697753F0010BA01 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A7E8B8A3269E148B008299AF /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 		E54D358B269E08B6009BC794 /* DailyChallengeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeButton.swift; sourceTree = "<group>"; };
 		E54D358D269E0EFD009BC794 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; };
 		E54D358E269E0EFD009BC794 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		E54D3591269E29C1009BC794 /* ChallengeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsView.swift; sourceTree = "<group>"; };
-		A7E8B8A3269E148B008299AF /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,6 @@
 		A783925E269771960010BA01 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A783927F2697754A0010BA01 /* Localization */,
 				A783925F2697719D0010BA01 /* Fonts */,
 			);
 			path = Resources;
@@ -120,6 +119,7 @@
 		A783925F2697719D0010BA01 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				A783927F2697754A0010BA01 /* Localization */,
 				A7839274269773F20010BA01 /* LondrinaSolid-Black.ttf */,
 				E54D358E269E0EFD009BC794 /* SF-Pro-Rounded-Regular.otf */,
 				E54D358D269E0EFD009BC794 /* SF-Pro-Rounded-Semibold.otf */,

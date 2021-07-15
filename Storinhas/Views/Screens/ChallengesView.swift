@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChallengesView: View {
     
+    
+    
     @ObservedObject var manager: Manager = Manager()
     
     let data = Array(1...10)
@@ -31,7 +33,7 @@ struct ChallengesView: View {
                     label: {
                         DailyChallengeButton(imagemPersonagem: "Coelhinho")
                             .onTapGesture {
-                                manager.nextView = true
+                                manager.nextView.toggle()
                             }
                     })
                 
@@ -64,6 +66,7 @@ struct ChallengesView: View {
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $manager.nextView, content: {
             AnyView(ChallengeDetailsView())
+
         })
         
         
