@@ -18,12 +18,17 @@ struct DailyChallengeButton: View {
             
             Rectangle()
                 .fill(Theming.gradients.sunrise)
-                .frame(width: UIScreen.main.bounds.height / 1.3, height: UIScreen.main.bounds.height / 4.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: UIScreen.main.bounds.height / 1.4, height: UIScreen.main.bounds.height / 4.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .cornerRadius(25)
             
-            
-            Image(imagemPersonagem)
-                .offset(x: UIScreen.main.bounds.width / 2.5, y: -UIScreen.main.bounds.height / 30)
+            HStack {
+                Spacer()
+                Image(imagemPersonagem)
+                    .padding(.trailing, 50)
+                    .padding(.bottom, 50)
+            }
+            .frame(width: UIScreen.main.bounds.height / 1.4, height: UIScreen.main.bounds.height / 4.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+
 
             
             VStack(alignment: .leading, spacing: nil, content: {
@@ -47,12 +52,12 @@ struct DailyChallengeButton: View {
             })
             .frame(width: UIScreen.main.bounds.height / 1.45, height: UIScreen.main.bounds.height / 5, alignment: .leading)
             .padding(.bottom)
+            .padding(.leading, 50)
 
             
         }
-        
-        
-        
+    
+
         
     }
 }
@@ -63,6 +68,7 @@ struct DailyChallengeButton_Previews: PreviewProvider {
     static var previews: some View {
         DailyChallengeButton(imagemPersonagem: "Coelhinho")
             .landscape()
+
     }
 }
 

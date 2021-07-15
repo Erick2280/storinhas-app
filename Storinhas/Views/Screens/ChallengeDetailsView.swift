@@ -25,6 +25,7 @@ struct ChallengeDetailsView: View {
                         .tracking(3)
                     
                     
+                    
                     ZStack {
                         
                         Rectangle()
@@ -53,7 +54,7 @@ struct ChallengeDetailsView: View {
                                     Rectangle()
                                         .frame(width: UIScreen.main.bounds.height / 30, height: UIScreen.main.bounds.height / 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                         .foregroundColor(.white)
-                                        .cornerRadius(10)
+                                        .cornerRadius(7)
                                         .padding()
                                     
                                     Text("CHALLENGE_REQUIREMENT1")
@@ -67,7 +68,7 @@ struct ChallengeDetailsView: View {
                                     Rectangle()
                                         .frame(width: UIScreen.main.bounds.height / 30, height: UIScreen.main.bounds.height / 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                         .foregroundColor(.white)
-                                        .cornerRadius(10)
+                                        .cornerRadius(7)
                                         .padding()
                                     
                                     Text("CHALLENGE_REQUIREMENT2")
@@ -81,7 +82,7 @@ struct ChallengeDetailsView: View {
                                     Rectangle()
                                         .frame(width: UIScreen.main.bounds.height / 30, height: UIScreen.main.bounds.height / 30, alignment: .center)
                                         .foregroundColor(.white)
-                                        .cornerRadius(10)
+                                        .cornerRadius(7)
                                         .padding()
                                     
                                     Text("CHALLENGE_REQUIREMENT3")
@@ -102,10 +103,20 @@ struct ChallengeDetailsView: View {
                     
                     .padding(.vertical, UIScreen.main.bounds.height / 15)
                     
-                    TextButton(text: Binding.constant("ACTION_START"), style: .primary)
-                        .padding(.bottom, UIScreen.main.bounds.height / 15)
+                    NavigationLink(
+                        destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                        label: {
+                            TextButton(text: Binding.constant("ACTION_START"), style: .primary)
+                                .padding(.bottom, UIScreen.main.bounds.height / 15)
+                        })
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                        .navigationBarTitle("")
+                    
+                    
                     
                 }
+                .padding(.top, 50)
                 
                 HStack {
                     
@@ -114,33 +125,38 @@ struct ChallengeDetailsView: View {
                     VStack {
                         
                         NavigationLink(
+                            
                             destination: ChallengesView(),
                             label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(Color("DarkPurple"))
                                     .font(.largeTitle)
                                     .onTapGesture {
+                                        
                                         presentationMode.wrappedValue.dismiss()
                                     }
-                                
+                                    
                             })
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarHidden(true)
+                            .navigationBarTitle("")
+                        
                         Spacer()
                         
                     }
-                    
+                    .padding(.top)
+
                 }
-                .padding(.trailing, 50)
-                
-                
-                
-                
-                
+                .padding(.trailing)
+
             }
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("", displayMode: .inline)
+
         
         
     }

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ChallengesView: View {
     
-    
-    
     @ObservedObject var manager: Manager = Manager()
     
     let data = Array(1...10)
@@ -36,6 +34,9 @@ struct ChallengesView: View {
                                 manager.nextView.toggle()
                             }
                     })
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarHidden(true)
+                    .navigationBarTitle("")
                 
                 
                 Spacer()
@@ -46,7 +47,7 @@ struct ChallengesView: View {
                         HStack(alignment: .center, spacing: UIScreen.main.bounds.height / 25) {
                             
                             Rectangle()
-                                .frame(width: UIScreen.main.bounds.height / 8.2, height: UIScreen.main.bounds.height / 8.2, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .frame(width: UIScreen.main.bounds.height / 9, height: UIScreen.main.bounds.height / 9, alignment: .center)
                                 .cornerRadius(20)
                             
                         }
@@ -55,15 +56,17 @@ struct ChallengesView: View {
                     
                     Spacer()
                 }
-                .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 15, bottom: UIScreen.main.bounds.width / 11, trailing: 0))
+                .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 17, bottom: UIScreen.main.bounds.width / 11, trailing: 0))
                 
                 Spacer()
             }
+            .padding(.top, 80)
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("", displayMode: .inline)
         .fullScreenCover(isPresented: $manager.nextView, content: {
             AnyView(ChallengeDetailsView())
 

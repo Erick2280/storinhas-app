@@ -25,7 +25,7 @@ struct TextButton: View {
                     Text(LocalizedStringKey(text))
                         .foregroundColor(Color.white)
                 }
-                .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 180, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .padding(32)
                 .padding(.horizontal)
                 .background(Theming.gradients.purple)
@@ -37,7 +37,7 @@ struct TextButton: View {
                     Text(LocalizedStringKey(text))
                         .foregroundColor(Color("Purple"))
                 }
-                .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 180, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .padding(32)
                 .padding(.horizontal)
                 .overlay(
