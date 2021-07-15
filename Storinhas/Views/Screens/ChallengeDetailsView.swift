@@ -13,9 +13,7 @@ struct ChallengeDetailsView: View {
         NavigationView {
             
             ZStack {
-                
-                
-                
+
                 VStack {
                     
                     Text("CHALLENGES_DAILYCHALLENGE")
@@ -93,13 +91,9 @@ struct ChallengeDetailsView: View {
                             })
                             
                             Spacer(minLength: 80)
-                         
-                            
-                            
+
                         }
-                        
-                        
-                        
+
                     }
                     .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 3, alignment: .center)
                     
@@ -107,10 +101,7 @@ struct ChallengeDetailsView: View {
                     
                     TextButton(text: Binding.constant("ACTION_START"), style: .primary)
                         .padding(.bottom, UIScreen.main.bounds.height / 15)
-                    
 
-                    
-                    
                 }
                 
                 Image(systemName: "xmark.circle.fill")
