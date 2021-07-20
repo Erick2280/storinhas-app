@@ -26,6 +26,8 @@
 		A7839278269773F20010BA01 /* LondrinaSolid-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839274269773F20010BA01 /* LondrinaSolid-Black.ttf */; };
 		A783927B2697753A0010BA01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A783927D2697753A0010BA01 /* Localizable.strings */; };
 		A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E8B8A3269E148B008299AF /* CustomImage.swift */; };
+		FE56A16E26A7552C00752E7E /* ElementDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE56A16D26A7552C00752E7E /* ElementDrawer.swift */; };
+		FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3301726A616E300987730 /* ComponentMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		A783927C2697753A0010BA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A783927E2697753F0010BA01 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A7E8B8A3269E148B008299AF /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
+		FE56A16D26A7552C00752E7E /* ElementDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementDrawer.swift; sourceTree = "<group>"; };
+		FEB3301726A616E300987730 /* ComponentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +89,6 @@
 			children = (
 				A7E8B8A5269E18A0008299AF /* Models */,
 				A7839260269771A30010BA01 /* Views */,
-				A783925E269771960010BA01 /* Resources */,
 				A783924F2697715A0010BA01 /* StorinhasApp.swift */,
 				A78392532697715C0010BA01 /* Assets.xcassets */,
 				A78392582697715C0010BA01 /* Info.plist */,
@@ -139,6 +142,9 @@
 				A783926F2697736C0010BA01 /* TextButton.swift */,
 				A750710B269CC5EA0009BCCF /* RenderCanvas.swift */,
 				A7E8B8A3269E148B008299AF /* CustomImage.swift */,
+				FEB3301726A616E300987730 /* ComponentMenu.swift */,
+				FE56A16D26A7552C00752E7E /* ElementDrawer.swift */,
+				A783925E269771960010BA01 /* Resources */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -255,7 +261,9 @@
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
 				A783926A269773160010BA01 /* StoryEditorView.swift in Sources */,
 				A7839264269772C90010BA01 /* StoriesView.swift in Sources */,
+				FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */,
 				A78392682697730B0010BA01 /* StoryCreationAssistantView.swift in Sources */,
+				FE56A16E26A7552C00752E7E /* ElementDrawer.swift in Sources */,
 				A7507110269CE1F10009BCCF /* Theming.swift in Sources */,
 				A750710E269CC6880009BCCF /* Story.swift in Sources */,
 			);
