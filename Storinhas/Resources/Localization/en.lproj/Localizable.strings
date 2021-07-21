@@ -11,6 +11,8 @@
 "ACTION_SAVE" = "Save";
 "ACTION_NEXT" = "Next";
 "ACTION_FINISH" = "Finish";
+"ACTION_UNDO" = "Undo";
+"ACTION_REDO" = "Redo";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! Let's unleash the imagination?";

@@ -11,7 +11,8 @@ struct PageCanvas: View {
     @State var storyPage = StoryPage(backgroundPath: nil, elements: [
                                         PageElement(x: -0.4, y: -0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
                                         PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
-                                        PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))])
+                                        PageElement(x: -0.2, y: 0.1, scale: 0.2, imagePath: .catalogedAsset(named: "TestTurtle")),
+                                        PageElement(x: 0.2, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))], history: StoryPageHistory())
     @Binding var storyPager: StoryPage
     let editable: Bool
     
@@ -19,10 +20,11 @@ struct PageCanvas: View {
     @State private var feedback = UINotificationFeedbackGenerator()
 
     /* REVIEW:
-     Apagar elemento
+     Bug offbounds
      Bug de elementos idênticos no mesmo lugar
-     status locked se não for editável
      Balões
+     Inverter
+     Refatorar
     */
     
     var body: some View {
@@ -38,6 +40,29 @@ struct PageCanvas: View {
             ZStack {
                 /* Text(getDebugText()) */
                 
+                if (storyPage.history.undoAvailable) {
+                    Button(action: undo) {
+                        Text("Undo")
+                    }
+                }
+                
+                if (storyPage.history.redoAvailable) {
+                    Button(action: redo) {
+                        Text("Redo")
+                    }.offset(y: metrics.size.height * 0.1)
+                }
+                
+                if (isMovingElement()) {
+                    Image(systemName: "trash.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(Color("Coral"))
+                        .frame(width: getTrashScale(metrics: metrics))
+                        .transition(.offset(y: metrics.size.height * 0.6))
+                        .animation(.easeInOut)
+                        .offset(y: metrics.size.height * 0.44)
+                }
+                
                 ForEach(storyPage.elements, id: \.self) { element in
                     
                     let offset = getOffset(metrics: metrics, element: element)
@@ -49,6 +74,8 @@ struct PageCanvas: View {
                         .shadow(radius: getShadow(element: element))
                         .gesture((LongPressGesture(minimumDuration: 0.5)
                             .onEnded { value in
+                                if !editable { return }
+
                                 withAnimation {
                                     switch self.status {
                                         case .idle:
@@ -61,6 +88,8 @@ struct PageCanvas: View {
                             }
                         ).sequenced(before: DragGesture()
                             .onChanged { value in
+                                if !editable { return }
+                                
                                 switch self.status {
                                     case .holdingElement, .movingTopElement: break
                                     default: return
@@ -73,6 +102,8 @@ struct PageCanvas: View {
                                 }
                             }
                             .onEnded { _ in
+                                if !editable { return }
+
                                 withAnimation {
                                     self.commitMove()
                                     self.status = .idle
@@ -80,6 +111,8 @@ struct PageCanvas: View {
                             })
                         )
                         .gesture(LongPressGesture(minimumDuration: 0).onEnded { value in
+                            if !editable { return }
+
                             withAnimation {
                                 switch self.status {
                                     case .holdingElement:
@@ -88,8 +121,10 @@ struct PageCanvas: View {
                                 }
                             }
                         })
-                        .gesture(MagnificationGesture()
+                        .gesture(MagnificationGesture(minimumScaleDelta: CGFloat.leastNonzeroMagnitude)
                             .onChanged { value in
+                                if !editable { return }
+                                
                                 switch self.status {
                                     case .idle, .resizingTopElement: break
                                     default: return
@@ -100,6 +135,8 @@ struct PageCanvas: View {
                                 }
                             }
                             .onEnded { _ in
+                                if !editable { return }
+
                                 withAnimation {
                                     self.commitResize()
                                     self.status = .idle
@@ -113,6 +150,27 @@ struct PageCanvas: View {
     
     func backgroundExists() -> Bool {
         return storyPage.backgroundPath != nil
+    }
+    
+    func isMovingElement() -> Bool {
+        switch self.status {
+            case .holdingElement, .movingTopElement: return true
+            default: return false;
+        }
+    }
+    
+    func isElementWithinTrashBoundaries() -> Bool {
+        if case .movingTopElement(let translationX, let translationY) = self.status {
+            if storyPage.elements.count > 0 &&
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) > -0.05 &&
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) < 0.05 &&
+                storyPage.elements[getTopElementIndex()].y + Double(translationY) > 0.425
+                {
+                return true
+            }
+        }
+        
+        return false
     }
     /*
     func getDebugText() -> String {
@@ -176,6 +234,21 @@ struct PageCanvas: View {
         return metrics.size.width * multiplier
     }
     
+    func getTrashScale(metrics: GeometryProxy) -> CGFloat {
+        var multiplier: CGFloat = 0.1
+        
+        switch self.status {
+            case .movingTopElement:
+                if (isElementWithinTrashBoundaries()) {
+                    multiplier = 0.15
+                }
+            default: break;
+        }
+        
+        return metrics.size.width * multiplier
+        
+    }
+    
     func getShadow(element: PageElement) -> CGFloat {
         switch self.status {
             case .holdingElement, .movingTopElement:
@@ -190,17 +263,51 @@ struct PageCanvas: View {
     func commitMove() {
         if case .movingTopElement(let translationX, let translationY) = self.status {
             if (storyPage.elements.count > 0) {
+                if (isElementWithinTrashBoundaries()) {
+                    commitRemove()
+                    return;
+                }
                 storyPage.elements[getTopElementIndex()].saveTranslationOffset(x: Double(translationX), y: Double(translationY))
+                backup()
             }
         }
+    }
+    
+    func commitRemove() {
+        storyPage.elements.removeLast()
+        backup()
+    }
+    
+    func commitHorizontalFlipToggle() {
+        storyPage.elements[getTopElementIndex()].toggleHorizontalFlip()
+        backup()
     }
     
     func commitResize() {
         if case .resizingTopElement(let scaleMultiplier) = self.status {
             if (storyPage.elements.count > 0) {
                 storyPage.elements[getTopElementIndex()].saveScaleMultiplier(scaleMultiplier: Double(scaleMultiplier))
+                backup()
             }
         }
+    }
+    
+    func backup() {
+        storyPage.history.backup(storyPage)
+    }
+    
+    func undo() {
+        if (!storyPage.history.undoAvailable) { return }
+        
+        let undoneStoryPage = storyPage.history.undo()
+        storyPage = undoneStoryPage!
+    }
+    
+    func redo() {
+        if (!storyPage.history.redoAvailable) { return }
+        
+        let redoneStoryPage = storyPage.history.redo()
+        storyPage = redoneStoryPage!
     }
     
     enum CanvasStatus: Equatable {
@@ -217,7 +324,7 @@ struct PageCanvas_Previews: PreviewProvider {
             PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
             PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
             PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))
-        ])), editable: false)
+        ], history: StoryPageHistory())), editable: true)
     }
 }
 

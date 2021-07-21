@@ -11,6 +11,8 @@
 "ACTION_SAVE" = "Salvar";
 "ACTION_NEXT" = "Próximo";
 "ACTION_FINISH" = "Concluir";
+"ACTION_UNDO" = "Desfazer";
+"ACTION_REDO" = "Refazer";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! Bora soltar a imaginação?";
