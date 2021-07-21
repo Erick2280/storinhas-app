@@ -21,6 +21,7 @@ struct ComponentMenu: View {
     @State var sceneToggle = 0
     @State var bubbleToggle = 0
     
+    @ObservedObject var manager: Manager = Manager.shared
     
     var body: some View {
         
@@ -31,20 +32,26 @@ struct ComponentMenu: View {
                 switch selectedIndex {
                 
                 case 0:
-                    //person
-                    Text("person querida")
+                    //nada selecionado
+                    Text("")
                     
                 case 1:
-                    //object
-                    Text("object querida")
+                    //person
+                    ElementDrawer()
                     
                 case 2:
-                    //Scene
-                    Text("scene querida")
+                    //object
+                    ElementDrawer()
+                    
                     
                 case 3:
+                    //Scene
+                    ElementDrawer()
+                    
+                    
+                case 4:
                     //bubble
-                Text("bubble familia")
+                    ElementDrawer()
                     
                 default:
                     //Person
@@ -75,7 +82,8 @@ struct ComponentMenu: View {
                             .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
                             .onTapGesture {
                                 
-                                selectedIndex = 0
+                                selectedIndex = 1
+                                manager.selectedArray = .array(elements: manager.personArray)
                                 
                                 if personToggle == 0 {
                                     personToggle = 1
@@ -94,6 +102,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 2
+                                manager.selectedArray = .array(elements: manager.objectArray)
                                 
                                 if objectToggle == 0 {
                                     personToggle = 0
@@ -112,6 +121,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 3
+                                manager.selectedArray = .array(elements: manager.sceneArray)
                                 
                                 if sceneToggle == 0 {
                                     personToggle = 0
@@ -129,7 +139,7 @@ struct ComponentMenu: View {
                             .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
                             .onTapGesture {
                                 
-                                selectedIndex = 3
+                                selectedIndex = 4
                                 
                                 if bubbleToggle == 0 {
                                     personToggle = 0
