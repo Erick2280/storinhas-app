@@ -21,7 +21,7 @@ struct ComponentMenu: View {
     @State var sceneToggle = 0
     @State var bubbleToggle = 0
     
-    @ObservedObject var manager: Manager = Manager.shared
+
     
     var body: some View {
         
@@ -83,7 +83,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 1
-                                manager.selectedArray = .array(elements: manager.personArray)
+                                
                                 
                                 if personToggle == 0 {
                                     personToggle = 1
@@ -102,7 +102,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 2
-                                manager.selectedArray = .array(elements: manager.objectArray)
+                                
                                 
                                 if objectToggle == 0 {
                                     personToggle = 0
@@ -121,7 +121,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 3
-                                manager.selectedArray = .array(elements: manager.sceneArray)
+                                
                                 
                                 if sceneToggle == 0 {
                                     personToggle = 0
@@ -140,6 +140,7 @@ struct ComponentMenu: View {
                             .onTapGesture {
                                 
                                 selectedIndex = 4
+                                
                                 
                                 if bubbleToggle == 0 {
                                     personToggle = 0
