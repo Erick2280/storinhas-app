@@ -9,62 +9,12 @@ import SwiftUI
 
 struct ElementDrawer: View {
     
-    /*
-     Array de cada tipo de elemento
-     person
-     object
-     scene
-     bubble
-     
-     func (selectindex) {
-     if selecindex = 0 {
-     elemento(array pessoa)
-     }
-     if selecindex = 1 {
-     elemento(array object)
-     }
-     if selecindex = 2 {
-     elemento(array scene)
-     }
-     if selecindex = 3 {
-     elemento(array bubble)
-     }
-     */
-    
-    let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10"]
-    let objectArray = ["object-1", "object-2", "object-3", "object-4", "object-5", "object-6", "object-7", "object-8", "object-9", "object-10", "object-11", "object-12", "object-13"]
-    let sceneArray = ["scene-1", "scene-2", "scene-3" ]
-    
-    @State var selectedIndex = 0
-    
-    var selectedArray: SelectedArray = .none
+    var selectedArray: SelectedArray
+    @Binding var storyPage: StoryPage
     
     var body: some View {
-        /*
-         gaveta (array)
-         */
+        
         VStack{
-            Button(action: {
-                selectedArray = .array(elements: personArray)
-            }
-            , label: {
-                Text("Button")
-            })
-            
-            Button(action: {
-                selectedArray = .array(elements: objectArray)
-            }
-            , label: {
-                Text("Button")
-            })
-            
-            Button(action: {
-                selectedArray = .array(elements: sceneArray)
-            }
-            , label: {
-                Text("Button")
-            })
-            
             Spacer()
             ZStack(){
                 Rectangle()
@@ -76,15 +26,17 @@ struct ElementDrawer: View {
                         
                         if case .array(let elements) = selectedArray {
                             ForEach(0..<elements.count){ num in
-                                Image("\(elements[num])")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .padding(.leading)
-                            }
+                                Button(action: {
+                                    storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                }, label: {
+                                    Image("\(elements[num])")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .padding(.leading)
+                                })
                         }
-                        
-                        
+                        }
                     }
                 })
                 
@@ -101,11 +53,6 @@ struct ElementDrawer: View {
         case array(elements: [String])
     }
     
-    func changeContent() {
-        if selectedIndex == 0 {
-            selectedArray = .none
-        }
-    }
     
     
 }
@@ -114,7 +61,11 @@ struct ElementDrawer: View {
 
 struct ElementDrawer_Previews: PreviewProvider {
     static var previews: some View {
-        ElementDrawer()
+        ElementDrawer(selectedArray: .array(elements: ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10"]), storyPage: Binding.constant(StoryPage(backgroundPath: nil, elements: [
+            PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
+            PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
+            PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))
+        ], history: StoryPageHistory())))
         //            .landscape()
     }
 }
