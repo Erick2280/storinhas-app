@@ -172,7 +172,12 @@ struct ComponentMenu: View {
                 Spacer()
                 
                 PageCanvas(storyPage: $storyPage, editable: true)
-                    .frame(width: 700, height: 700, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 500, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .padding(.bottom, UIScreen.main.bounds.height / 7)
+                    
+                
+                Spacer(minLength: UIScreen.main.bounds.width / 3.2)
+                
                 
                 
             }
@@ -203,7 +208,7 @@ struct RoundedCorner: Shape {
 struct ComponentMenu_Previews: PreviewProvider {
     static var previews: some View {
         ComponentMenu()
-            .landscape()
+            
     }
 }
 

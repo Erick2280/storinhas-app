@@ -16,33 +16,39 @@ struct ElementDrawer: View {
         
         VStack{
             Spacer()
-            ZStack(){
-                Rectangle()
-                    .foregroundColor(.blue)
-                    .cornerRadius(20.0)
-                
-                ScrollView(.horizontal, showsIndicators: false, content: {
-                    HStack(spacing: 40){
-                        
-                        if case .array(let elements) = selectedArray {
-                            ForEach(0..<elements.count){ num in
-                                Button(action: {
-                                    storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
-                                }, label: {
-                                    Image("\(elements[num])")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 100)
-                                        .padding(.leading)
-                                })
-                        }
-                        }
-                    }
-                })
-                
-            }.frame(width: UIScreen.main.bounds.width/1.2, height: UIScreen.main.bounds.height/10, alignment: .center)
-            .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 5, bottom: UIScreen.main.bounds.height / 30, trailing: 0))
             
+            Group {
+                
+                ZStack(){
+                    Rectangle()
+                        .foregroundColor(.blue)
+                        .cornerRadius(20.0)
+                    
+                    ScrollView(.horizontal, showsIndicators: false, content: {
+                        HStack(spacing: 40){
+                            
+                            if case .array(let elements) = selectedArray {
+                                ForEach(0..<elements.count){ num in
+                                    Button(action: {
+                                        storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                    }, label: {
+                                        Image("\(elements[num])")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                            .padding(.leading)
+                                    })
+                            }
+                            }
+                        }
+                    })
+                    
+                }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/10, alignment: .center)
+                .padding(.bottom, UIScreen.main.bounds.height / 10)
+                .padding(.leading, UIScreen.main.bounds.width / 8.5)
+            }
+            
+ 
         }
 
     }
