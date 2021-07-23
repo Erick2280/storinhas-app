@@ -41,20 +41,17 @@ struct ElementDrawer: View {
                 })
                 
             }.frame(width: UIScreen.main.bounds.width/1.2, height: UIScreen.main.bounds.height/10, alignment: .center)
+            .padding(.init(top: 0, leading: UIScreen.main.bounds.width / 5, bottom: UIScreen.main.bounds.height / 30, trailing: 0))
             
         }
-        
-        
-        
+
     }
     
     public enum SelectedArray {
         case none
         case array(elements: [String])
     }
-    
-    
-    
+
 }
 
 
