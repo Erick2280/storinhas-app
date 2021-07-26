@@ -18,6 +18,7 @@ struct Theming {
     struct gradients {
         static let purple = LinearGradient(gradient: Gradient(colors: [Color("DeepBlue"), Color("Purple")]), startPoint: .top, endPoint: .bottom)
         static let sunrise = LinearGradient(gradient: Gradient(colors: [Color("LightOrange"), Color("Coral")]), startPoint: .top, endPoint: .bottom)
+        static let background = AngularGradient(gradient: Gradient(colors: [Color("Lilac"), Color("Barbie"), Color("Salmon"),  Color("Banana"), Color("TeaGreen")]), center: .center)
     }
 }
 
@@ -44,6 +45,10 @@ struct Theming_Previews: PreviewProvider {
             
             RoundedRectangle(cornerSize: CGSize(width: 16.0, height: 16.0))
                 .fill(Theming.gradients.sunrise)
+                .frame(width: 128, height: 128)
+                .padding(.vertical, 8)
+            RoundedRectangle(cornerSize: CGSize(width: 16.0, height: 16.0))
+                .fill(Theming.gradients.background)
                 .frame(width: 128, height: 128)
                 .padding(.vertical, 8)
             

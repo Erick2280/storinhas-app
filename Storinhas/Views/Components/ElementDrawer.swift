@@ -21,7 +21,7 @@ struct ElementDrawer: View {
                 
                 ZStack(){
                     Rectangle()
-                        .foregroundColor(.blue)
+                        .foregroundColor(.white)
                         .cornerRadius(20.0)
                     
                     ScrollView(.horizontal, showsIndicators: false, content: {
