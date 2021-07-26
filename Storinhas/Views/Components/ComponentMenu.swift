@@ -11,6 +11,8 @@ struct ComponentMenu: View {
     let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10"]
     let objectArray = ["object-1", "object-2", "object-3", "object-4", "object-5", "object-6", "object-7", "object-8", "object-9", "object-10", "object-11", "object-12", "object-13"]
     let sceneArray = ["scene-1", "scene-2", "scene-3" ]
+    //let bubbleArray = []
+    
     let tabBarPerson = ["person", "personSelected"]
     let tabBarObject = ["object", "objectSelected"]
     let tabBarScene = ["scene", "sceneSelected"]
