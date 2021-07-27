@@ -68,7 +68,7 @@ struct PageCanvas: View {
                         .scaledToFit()
                         .offset(x: offset.x, y: offset.y)
                         .shadow(radius: getShadow(element: element))
-                        .gesture((LongPressGesture(minimumDuration: 0.5)
+                        .gesture((LongPressGesture(minimumDuration: 0.1)
                             .onEnded { value in
                                 if !editable { return }
 

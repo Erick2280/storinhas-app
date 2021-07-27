@@ -7,17 +7,22 @@
 
 import Foundation
 
-class Story {
-    var status: StoryStatus
-    var pages: [StoryPage]
-    var orientation: StoryOrientation
-    var title: String
+class Story: ObservableObject {
+    @Published var status: StoryStatus
+    @Published var pages: [StoryPage]
+    @Published var orientation: StoryOrientation
+    @Published var title: String
     
-    init(title: String, orientation: StoryOrientation) {
+    init(title: String, orientation: StoryOrientation, amountOfPages: Int = 0) {
         self.status = .editing
         self.pages = []
         self.orientation = .landscape
         self.title = title
+        
+        for _ in 0...amountOfPages {
+            
+            pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
+        }
     }
 }
 

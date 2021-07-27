@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ComponentMenu: View {
+    
     let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10"]
     let objectArray = ["object-1", "object-2", "object-3", "object-4", "object-5", "object-6", "object-7", "object-8", "object-9", "object-10", "object-11", "object-12", "object-13"]
     let sceneArray = ["scene-1", "scene-2", "scene-3" ]
@@ -18,22 +19,28 @@ struct ComponentMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
+    @State var currentBackground = ""
+    
     @State var selectedIndex = 0
+    @State var pageIndex = 0
+    @State var numberOfPages = 3
     
     @State var personToggle = 0
     @State var objectToggle = 0
     @State var sceneToggle = 0
     @State var bubbleToggle = 0
-    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [
-        PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
-        PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
-        PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))
-    ], history: StoryPageHistory())
+    
+    @StateObject var story: Story = Story(title: "", orientation: .landscape, amountOfPages: 4)
+    
+    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))], history: StoryPageHistory())
+    
     
     
     var body: some View {
         
         ZStack {
+            
+            
             
             ZStack {
                 
@@ -45,28 +52,28 @@ struct ComponentMenu: View {
                     
                 case 1:
                     //person
-                    ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageIndex])
                     
                 case 2:
                     //object
-                    ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $story.pages[pageIndex])
                     
                     
                     
                 case 3:
                     //Scene
-                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $story.pages[pageIndex])
                     
                     
                     
                 case 4:
                     //bubble
-                    ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageIndex])
                     
                     
                 default:
                     //Person
-                    ChallengesView()
+                    Text("")
                     
                 }
                 
@@ -80,7 +87,7 @@ struct ComponentMenu: View {
                     Rectangle()
                         .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .cornerRadius(30, corners: [.topRight, .bottomRight])
-                        .shadow(radius: 20)
+                        .shadow(radius: 15)
                         .foregroundColor(Color( red: 237/255, green: 244/255, blue: 255/255))
                         .edgesIgnoringSafeArea(.all)
                     
@@ -162,7 +169,8 @@ struct ComponentMenu: View {
                                     print("tela de histórias selecionada")
                                 }
                             }
-                        // incluir os outros botoes
+                        
+                        
                         
                     }.padding(.bottom, 100)
                     
@@ -171,18 +179,61 @@ struct ComponentMenu: View {
                 
                 .ignoresSafeArea()
                 
+
+                
                 Spacer()
                 
-                PageCanvas(storyPage: $storyPage, editable: true)
-                    .frame(width: 500, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                
+                PageCanvas(storyPage: $story.pages[pageIndex], editable: true)
+                    .frame(width: 500, height: 500, alignment: .center)
                     .padding(.bottom, UIScreen.main.bounds.height / 7)
-                    
+                
                 
                 Spacer(minLength: UIScreen.main.bounds.width / 3.2)
                 
                 
                 
             }
+            
+            HStack {
+                
+                
+                Button(action: {
+                    //pagina anterior
+                    if pageIndex == 0 {
+                        print("error")
+                    } else {
+                        pageIndex -= 1
+                        print(pageIndex)
+                    }
+                    
+                }, label: {
+                    Image("previousPage")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                        .padding(.leading, UIScreen.main.bounds.width / 7.3)
+                })
+                
+                Spacer()
+                
+                Button(action: {
+                    //proxima pagina
+                    if pageIndex == numberOfPages {
+                        print("error")
+                    } else {
+                       pageIndex += 1
+                        print(pageIndex)
+                    }
+                    
+                }, label: {
+                    Image("nextPage")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                        .padding(.trailing, UIScreen.main.bounds.width / 80)
+                })
+                
+            }
+            .padding(.bottom, UIScreen.main.bounds.height / 7)
             
         }
         
@@ -210,7 +261,7 @@ struct RoundedCorner: Shape {
 struct ComponentMenu_Previews: PreviewProvider {
     static var previews: some View {
         ComponentMenu()
-            
+        
     }
 }
 

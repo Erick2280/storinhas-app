@@ -11,6 +11,7 @@ struct ElementDrawer: View {
     
     var selectedArray: SelectedArray
     @Binding var storyPage: StoryPage
+   
     
     var body: some View {
         
