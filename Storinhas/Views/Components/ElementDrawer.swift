@@ -35,7 +35,7 @@ struct ElementDrawer: View {
                                         Image("\(elements[num])")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 95, height: 95)
+                                            .frame(width: 90, height: 90)
                                             .padding(.leading)
                                     })
                             }
@@ -43,7 +43,7 @@ struct ElementDrawer: View {
                         }
                     }).cornerRadius(20)
                     
-                }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/10, alignment: .center)
+                }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/8, alignment: .center)
                 .padding(.bottom, UIScreen.main.bounds.height / 10)
                 .padding(.leading, UIScreen.main.bounds.width / 8.5)
             }

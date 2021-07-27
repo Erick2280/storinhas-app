@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CoverMenu: View {
     let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4","persona5-1", "persona5-2","persona5-3", "persona6-1", "persona6-2","persona6-3", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10", "animals-11"]
-    let sceneArray = ["scene-1", "scene-2", "scene-3", "scene-4", "scene-5", "scene-6"]
+    let sceneArray = ["livro-1", "livro-2", "livro-3", "livro-4"]
     
     let tabBarPerson = ["person", "personSelected"]
     let tabBarScene = ["scene", "sceneSelected"]
@@ -20,9 +20,12 @@ struct CoverMenu: View {
     @State var personToggle = 0
     @State var sceneToggle = 0
     @State var textToggle = 0
-    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "livro"), elements: [], history: StoryPageHistory())
+    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "livro-1"), elements: [], history: StoryPageHistory())
     
     var body: some View {
+        let pageCanvas = PageCanvas(storyPage: $storyPage, editable: true)
+        
+        
         ZStack {
             
             ZStack {
@@ -42,12 +45,11 @@ struct CoverMenu: View {
                     ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage)
                     
                     
-                    
                 case 3:
                     //text
                     ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
-                    //acho que aqui tem que chamar um texto field, nao sei
-                    
+                //acho que aqui tem que chamar um text field, nao sei
+                
                 default:
                     //Person
                     ChallengesView()
@@ -62,7 +64,7 @@ struct CoverMenu: View {
                 ZStack {
                     
                     Rectangle()
-                        .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: .center)
                         .cornerRadius(30, corners: [.topRight, .bottomRight])
                         .shadow(radius: 20)
                         .foregroundColor(Color( red: 237/255, green: 244/255, blue: 255/255))
@@ -74,11 +76,10 @@ struct CoverMenu: View {
                         Image("\(tabBarPerson[personToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 1
-                                
                                 
                                 if personToggle == 0 {
                                     personToggle = 1
@@ -92,11 +93,10 @@ struct CoverMenu: View {
                         Image("\(tabBarScene[sceneToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 2
-                                
                                 
                                 if sceneToggle == 0 {
                                     personToggle = 0
@@ -110,7 +110,7 @@ struct CoverMenu: View {
                         Image("\(tabBarText[textToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 3
@@ -123,18 +123,28 @@ struct CoverMenu: View {
                                 } else {
                                     print("tela de histórias selecionada")
                                 }
-                            }
+                            }.padding(.bottom, 100)
                         HStack{
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Button(action: {
+                                pageCanvas.undo()
+                            }, label: {
                                 Image(systemName: "arrow.uturn.left.circle.fill")
-                            })
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                            }).padding(.horizontal, 8.0)
+                            
+                            Button(action: {
+                                pageCanvas.redo()
+                            }, label: {
                                 Image(systemName: "arrow.uturn.right.circle.fill")
-                            })
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                            }).padding(.horizontal, 8.0)
                         }
-                       
                         
-                    }.padding(.bottom, 100)
+                        
+                        
+                    }
                     
                     
                 }
@@ -143,18 +153,20 @@ struct CoverMenu: View {
                 
                 Spacer()
                 
-                PageCanvas(storyPage: $storyPage, editable: true)
-                    .frame(width: 418, height: 532, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .padding(.bottom, UIScreen.main.bounds.height / 7)
-                    
+                pageCanvas.frame(width: 418, height: 532, alignment: .center).padding(.bottom, UIScreen.main.bounds.height / 7)
                 
-                Spacer(minLength: UIScreen.main.bounds.width / 3.2)
+                
+                
+                Spacer(minLength: UIScreen.main.bounds.width / 4.2)
                 
                 
                 
             }
             
-        }.background(Theming.gradients.background)
+        }.padding(.top, 18.0)
+        .background(Theming.gradients.background)
+        
+        
     }
 }
 

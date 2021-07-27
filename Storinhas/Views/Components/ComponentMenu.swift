@@ -174,7 +174,7 @@ struct ComponentMenu: View {
                 Spacer()
                 
                 PageCanvas(storyPage: $storyPage, editable: true)
-                    .frame(width: 500, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 500, height: 500, alignment: .center)
                     .padding(.bottom, UIScreen.main.bounds.height / 7)
                     
                 
@@ -214,28 +214,3 @@ struct ComponentMenu_Previews: PreviewProvider {
     }
 }
 
-struct LandscapeModifier: ViewModifier {
-    let height = UIScreen.main.bounds.width
-    let width = UIScreen.main.bounds.height
-    
-    var isPad: Bool {
-        return height >= 768
-    }
-    
-    var isRegularWidth: Bool {
-        return height >= 414
-    }
-    
-    func body(content: Content) -> some View {
-        content
-            .previewLayout(.fixed(width: width, height: height))
-            .environment(\.horizontalSizeClass, isRegularWidth ? .regular: .compact)
-            .environment(\.verticalSizeClass, isPad ? .regular: .compact)
-    }
-}
-
-extension View {
-    func landscape() -> some View {
-        self.modifier(LandscapeModifier())
-    }
-}
