@@ -32,7 +32,7 @@ struct ComponentMenu: View {
     
     
     var body: some View {
-        
+        let pageCanvas = PageCanvas(storyPage: $storyPage, editable: true)
         ZStack {
             
             ZStack {
@@ -55,7 +55,7 @@ struct ComponentMenu: View {
                     
                 case 3:
                     //Scene
-                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, changeBackground: true)
                     
                     
                     
@@ -90,7 +90,7 @@ struct ComponentMenu: View {
                         Image("\(tabBarPerson[personToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 1
@@ -109,7 +109,7 @@ struct ComponentMenu: View {
                         Image("\(tabBarObject[objectToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 2
@@ -128,7 +128,7 @@ struct ComponentMenu: View {
                         Image("\(tabBarScene[sceneToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 3
@@ -147,7 +147,7 @@ struct ComponentMenu: View {
                         Image("\(tabBarBubble[bubbleToggle])")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                            .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                            .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 
                                 selectedIndex = 4
@@ -161,10 +161,28 @@ struct ComponentMenu: View {
                                 } else {
                                     print("tela de histórias selecionada")
                                 }
-                            }
-                        // incluir os outros botoes
+                            }.padding(.bottom, 8)
                         
-                    }.padding(.bottom, 100)
+                        HStack{
+                            Button(action: {
+                                pageCanvas.undo()
+                            }, label: {
+                                Image(systemName: "arrow.uturn.left.circle.fill")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                            }).padding(.horizontal, 8.0)
+                            
+                            Button(action: {
+                                pageCanvas.redo()
+                            }, label: {
+                                Image(systemName: "arrow.uturn.right.circle.fill")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                            }).padding(.horizontal, 8.0)
+                        }
+                        
+                    }
+                    
                     
                     
                 }
@@ -184,7 +202,8 @@ struct ComponentMenu: View {
                 
             }
             
-        }.background(Theming.gradients.background)
+        }.padding(.top, 18.0)
+        .background(Theming.gradients.background)
         
     }
 }

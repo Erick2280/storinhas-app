@@ -21,13 +21,39 @@ struct CoverMenu: View {
     @State var sceneToggle = 0
     @State var textToggle = 0
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "livro-1"), elements: [], history: StoryPageHistory())
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         let pageCanvas = PageCanvas(storyPage: $storyPage, editable: true)
         
         
         ZStack {
-            
+            HStack {
+                                
+                                Spacer()
+                                
+                                VStack {
+                                
+                                NavigationLink(
+                                    
+                                    destination: ChallengesView(),
+                                    label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundColor(Color("DarkPurple"))
+                                            .font(.largeTitle)
+                                            .onTapGesture {
+                                                presentationMode.wrappedValue.dismiss()
+                                            }
+                                    })
+                                    .navigationBarBackButtonHidden(true)
+                                    .navigationBarHidden(true)
+                                    .navigationBarTitle("")
+                                    
+                                    Spacer()
+                                    
+                                }.padding(.top, UIScreen.main.bounds.height / 55)
+                                
+                            }.padding(.trailing, UIScreen.main.bounds.width / 40)
             ZStack {
                 
                 switch selectedIndex {
@@ -42,7 +68,7 @@ struct CoverMenu: View {
                     
                 case 2:
                     //Scene
-                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage)
+                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, changeBackground: true)
                     
                     
                 case 3:
@@ -123,7 +149,8 @@ struct CoverMenu: View {
                                 } else {
                                     print("tela de histórias selecionada")
                                 }
-                            }.padding(.bottom, 100)
+                            }.padding(.bottom, 180)
+                        
                         HStack{
                             Button(action: {
                                 pageCanvas.undo()
@@ -162,6 +189,7 @@ struct CoverMenu: View {
                 
                 
             }
+            
             
         }.padding(.top, 18.0)
         .background(Theming.gradients.background)

@@ -11,7 +11,7 @@ struct ElementDrawer: View {
     
     var selectedArray: SelectedArray
     @Binding var storyPage: StoryPage
-    
+    var changeBackground: Bool = false
     var body: some View {
         
         VStack{
@@ -30,7 +30,12 @@ struct ElementDrawer: View {
                             if case .array(let elements) = selectedArray {
                                 ForEach(0..<elements.count){ num in
                                     Button(action: {
-                                        storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                        if changeBackground {
+                                            storyPage.backgroundPath = .catalogedAsset(named: "\(elements[num])")
+                                        } else {
+                                            storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                        }
+                                        
                                     }, label: {
                                         Image("\(elements[num])")
                                             .resizable()
@@ -44,8 +49,9 @@ struct ElementDrawer: View {
                     }).cornerRadius(20)
                     
                 }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/8, alignment: .center)
-                .padding(.bottom, UIScreen.main.bounds.height / 10)
+                .padding(.bottom, UIScreen.main.bounds.height / 15)
                 .padding(.leading, UIScreen.main.bounds.width / 8.5)
+                
             }
             
  

@@ -34,19 +34,6 @@ struct PageCanvas: View {
             }
 
             ZStack {
-                /* Text(getDebugText()) */
-                
-//                if (storyPage.history.undoAvailable) {
-//                    Button(action: undo) {
-//                        Text("Undo")
-//                    }
-//                }
-//                
-//                if (storyPage.history.redoAvailable) {
-//                    Button(action: redo) {
-//                        Text("Redo")
-//                    }.offset(y: metrics.size.height * 0.1)
-//                }
                 
                 if (isMovingElement()) {
                     Image(systemName: "trash.circle.fill")
