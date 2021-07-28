@@ -19,7 +19,7 @@ class Story: ObservableObject {
         self.orientation = .landscape
         self.title = title
         
-        for _ in 0...amountOfPages {
+        for _ in 0..<amountOfPages {
             
             pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
         }
