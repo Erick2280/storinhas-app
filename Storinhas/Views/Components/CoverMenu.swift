@@ -195,6 +195,7 @@ struct CoverMenu: View {
         .background(Theming.gradients.background)
         
         
+        
     }
 }
 
