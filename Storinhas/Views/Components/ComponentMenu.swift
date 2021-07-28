@@ -24,11 +24,7 @@ struct ComponentMenu: View {
     @State var objectToggle = 0
     @State var sceneToggle = 0
     @State var bubbleToggle = 0
-    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [
-        PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
-        PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),
-        PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))
-    ], history: StoryPageHistory())
+    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [], history: StoryPageHistory())
     
     
     var body: some View {
