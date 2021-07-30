@@ -74,7 +74,7 @@ struct ComponentMenu: View {
                 ZStack {
                     
                     Rectangle()
-                        .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: .center)
                         .cornerRadius(30, corners: [.topRight, .bottomRight])
                         .shadow(radius: 20)
                         .foregroundColor(Color( red: 237/255, green: 244/255, blue: 255/255))
@@ -188,11 +188,11 @@ struct ComponentMenu: View {
                 Spacer()
                 
                 PageCanvas(storyPage: $storyPage, editable: true)
-                    .frame(width: 500, height: 500, alignment: .center)
-                    .padding(.bottom, UIScreen.main.bounds.height / 7)
+                    .frame(width: 755, height: 507.34, alignment: .center)
+                    .padding(.bottom, UIScreen.main.bounds.height / 5)
                     
                 
-                Spacer(minLength: UIScreen.main.bounds.width / 3.2)
+                Spacer(minLength: UIScreen.main.bounds.width / 15)
                 
                 
                 

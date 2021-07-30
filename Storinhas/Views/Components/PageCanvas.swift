@@ -43,7 +43,7 @@ struct PageCanvas: View {
                         .frame(width: getTrashScale(metrics: metrics))
                         .transition(.offset(y: metrics.size.height * 0.6))
                         .animation(.easeInOut)
-                        .offset(y: metrics.size.height * 0.44)
+                        .offset(x:metrics.size.width * 0.2, y: metrics.size.height * 0.7)
                 }
                 
                 ForEach(storyPage.elements, id: \.self) { element in
@@ -55,7 +55,7 @@ struct PageCanvas: View {
                         .scaledToFit()
                         .offset(x: offset.x, y: offset.y)
                         .shadow(radius: getShadow(element: element))
-                        .gesture((LongPressGesture(minimumDuration: 0.5)
+                        .gesture((LongPressGesture(minimumDuration: 0.1)
                             .onEnded { value in
                                 if !editable { return }
 
@@ -86,11 +86,8 @@ struct PageCanvas: View {
                             }
                             .onEnded { _ in
                                 if !editable { return }
-
-                                withAnimation {
-                                    self.commitMove()
-                                    self.status = .idle
-                                }
+                                self.commitMove()
+                                self.status = .idle
                             })
                         )
                         .gesture(LongPressGesture(minimumDuration: 0).onEnded { value in
@@ -128,6 +125,7 @@ struct PageCanvas: View {
                         .frame(width: getScale(metrics: metrics, element: element))
                 }
             }.frame(width: metrics.size.width, height: metrics.size.height)
+            .clipped()
         }
     }
     
