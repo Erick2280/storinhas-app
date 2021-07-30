@@ -11,6 +11,8 @@ func CustomImage(from imagePath: ImagePath) -> Image {
     switch imagePath {
     case .catalogedAsset(let name):
         return Image(name)
+    case .catalogedAssetWithOverlaidText(let name, _):
+        return Image(name)
     }
 }
 

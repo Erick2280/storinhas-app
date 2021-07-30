@@ -13,11 +13,15 @@ class Story {
     var orientation: StoryOrientation
     var title: String
     
-    init(title: String, orientation: StoryOrientation) {
+    init(title: String, orientation: StoryOrientation, amountOfPages: Int = 0) {
         self.status = .editing
         self.pages = []
         self.orientation = .landscape
         self.title = title
+        
+        for _ in 0..<amountOfPages {
+            pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
+        }
     }
 }
 
@@ -136,6 +140,7 @@ extension PageElement: Hashable {
 
 enum ImagePath: Equatable, Hashable {
     case catalogedAsset(named: String)
+    case catalogedAssetWithOverlaidText(named: String, overlaidText: String)
 }
 
 enum StoryStatus {
