@@ -14,11 +14,11 @@ struct StoryOverview: View {
     }
     
     @ObservedObject var manager: Manager = Manager()
-    @ObservedObject var pageManager: PageManager = PageManager()
+//    @ObservedObject var pageManager: PageManager = PageManager()
     
     @Environment(\.presentationMode) var presentationMode
     
-//    let data = Array(1...8)
+    let data = Array(1...8)
     
     let layout = [
         
@@ -41,7 +41,7 @@ struct StoryOverview: View {
                         
                         //EDITAR CAPA
                         NavigationLink(
-                            destination: Text("editor de capa"),
+                            destination: getDestination(),
                             label: {
                                 ZStack {
                                     Rectangle()
@@ -65,7 +65,13 @@ struct StoryOverview: View {
                                 }
                                 
                                 .onTapGesture {
-                                    manager.nextView.toggle()
+                                    if manager.nextView == false && manager.coverView == false {
+                                        manager.nextView = true
+                                        manager.coverView = true
+                                    } else {
+                                        manager.coverView = true
+                                        manager.nextView = true
+                                    }
                                 }
                             })
                             .navigationBarBackButtonHidden(true)
@@ -78,18 +84,46 @@ struct StoryOverview: View {
                     //PÁGINAS DA HISTÓRIA
                     LazyVGrid(columns: layout, spacing: UIScreen.main.bounds.height / 20) {
                         
-                        ForEach(Array(zip(story.pages.indices, story.pages)), id: \.0) { index, page in
+//                        ForEach(Array(zip(story.pages.indices, story.pages)), id: \.0) { index, page in
+//                            HStack(alignment: .center, spacing: UIScreen.main.bounds.width) {
+//
+//                                NavigationLink(
+//                                    destination: ComponentMenu(pageManager: createPageManager(index: index), story: story),
+//                                    label: {
+//                                        ZStack {
+//                                            Rectangle()
+//                                                .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
+//                                                .foregroundColor(Color.init(red: 225/255, green: 225/255, blue: 225/255))
+//                                                .cornerRadius(5)
+//
+//                                        }
+//                                    })
+//                            }
+//                        }
+                        
+                        ForEach(data, id: \.self) { item in
                             HStack(alignment: .center, spacing: UIScreen.main.bounds.width) {
                                 
                                 NavigationLink(
-                                    destination: ComponentMenu(pageManager: createPageManager(index: index), story: story),
+                                    destination: getDestination(),
                                     label: {
                                         ZStack {
                                             Rectangle()
                                                 .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
                                                 .foregroundColor(Color.init(red: 225/255, green: 225/255, blue: 225/255))
                                                 .cornerRadius(5)
-                                           
+                                                .onTapGesture {
+                                                    
+                                                    if manager.nextView == false && manager.storyView == false {
+                                                        manager.nextView = true
+                                                        manager.storyView = true
+                                                    } else {
+                                                        manager.storyView = true
+                                                        manager.nextView = true
+                                                    }
+                                                    
+                                                    
+                                                }
                                         }
                                     })
                             }
@@ -101,9 +135,18 @@ struct StoryOverview: View {
                     
                     //BOTÃO FINALIZAR HISTÓRIA
                     NavigationLink(
-                        destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                        destination: getDestination(),
                         label: {
                             TextButton(text: Binding.constant("ACTION_FINISH"), style: .primary)
+                                .onTapGesture {
+                                    if manager.nextView == false && manager.finishStoryView == false {
+                                        manager.nextView = true
+                                        manager.finishStoryView = true
+                                    } else {
+                                        manager.finishStoryView = true
+                                        manager.nextView = true
+                                    }
+                                }
                         })
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
@@ -122,7 +165,7 @@ struct StoryOverview: View {
                         
                         NavigationLink(
                             
-                            destination: ChallengesView(),
+                            destination: getDestination(),
                             label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(Color("DarkPurple"))
@@ -152,17 +195,32 @@ struct StoryOverview: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .fullScreenCover(isPresented: $manager.nextView, content: {
-            AnyView(ComponentMenu(story: story))
+            getDestination()
             
         })
     }
     
-    func createPageManager(index: Int) -> PageManager {
+//    func createPageManager(index: Int) -> PageManager {
+//        
+//        pageManager.pageIndex = index
+//        return pageManager
+//        
+//    }
+    
+    func getDestination() -> AnyView {
         
-        pageManager.pageIndex = index
-        return pageManager
+        if manager.coverView == true {
+            return AnyView(/*CoverMenu()*/Text("editor de capa"))
+        } else if manager.storyView == true {
+            return AnyView(ComponentMenu(story: story))
+        } else if manager.finishStoryView == true {
+            return AnyView(Text("Tela de histórias"))
+        } else {
+            return AnyView(ChallengesView())
+        }
         
     }
+    
 }
 
 
@@ -170,6 +228,10 @@ struct StoryOverview: View {
 class Manager: ObservableObject {
     
     @Published var nextView: Bool = false
+    @Published var coverView: Bool = false
+    @Published var storyView: Bool = false
+    @Published var finishStoryView: Bool = false
+    
     
 }
 
