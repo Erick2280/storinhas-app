@@ -22,20 +22,14 @@ struct ComponentMenu: View {
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
     @EnvironmentObject var pageManager: PageManager
-    
-//    @State var pageIndex = 0
-    
-    @State var currentBackground = ""
-    
+    @EnvironmentObject var story: Story
+ 
     @State var selectedIndex = 0
-
     @State var personToggle = 0
     @State var objectToggle = 0
     @State var sceneToggle = 0
     @State var bubbleToggle = 0
-    
-    @ObservedObject var story: Story
-    
+
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))], history: StoryPageHistory())
     
     

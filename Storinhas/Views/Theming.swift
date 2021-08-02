@@ -19,6 +19,7 @@ struct Theming {
     struct gradients {
         static let purple = LinearGradient(gradient: Gradient(colors: [Color("DeepBlue"), Color("Purple")]), startPoint: .top, endPoint: .bottom)
         static let sunrise = LinearGradient(gradient: Gradient(colors: [Color("LightOrange"), Color("Coral")]), startPoint: .top, endPoint: .bottom)
+        static let background = AngularGradient(gradient: Gradient(colors: [Color("Lilac"), Color("Barbie"), Color("Salmon"),  Color("Banana"), Color("TeaGreen")]), center: .center)
     }
 }
 
