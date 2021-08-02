@@ -18,7 +18,7 @@ struct ComponentMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
-    @State var selectedDrawer: SelectedDrawer = .none
+    @State var selectedDrawer: SelectedComponentDrawer = .none
 
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [], history: StoryPageHistory())
     
@@ -52,7 +52,6 @@ struct ComponentMenu: View {
                 }
                 
             }
-            
             
             HStack {
                 
@@ -132,8 +131,6 @@ struct ComponentMenu: View {
                         
                     }
                     
-                    
-                    
                 }
                 
                 .ignoresSafeArea()
@@ -145,10 +142,7 @@ struct ComponentMenu: View {
                     .clipped()
                     .padding(.bottom, UIScreen.main.bounds.height / 5)
                     
-                
                 Spacer(minLength: UIScreen.main.bounds.width / 15)
-                
-                
                 
             }
             
@@ -157,7 +151,7 @@ struct ComponentMenu: View {
         
     }
     
-    public enum SelectedDrawer {
+    public enum SelectedComponentDrawer {
         case none
         case personDrawer
         case objectDrawer

@@ -15,11 +15,8 @@ struct CoverMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarText = ["text", "textSelected"]
     
-    @State var selectedIndex = 0
-    
-    @State var personToggle = 0
-    @State var sceneToggle = 0
-    @State var textToggle = 0
+    @State var selectedDrawer: SelectedCoverDrawer = .none
+
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "livro-1"), elements: [], history: StoryPageHistory())
     @Environment(\.presentationMode) var presentationMode
     
@@ -56,29 +53,21 @@ struct CoverMenu: View {
                             }.padding(.trailing, UIScreen.main.bounds.width / 40)
             ZStack {
                 
-                switch selectedIndex {
+                switch self.selectedDrawer {
                 
-                case 0:
-                    //nada selecionado
-                    Text("")
+                case .none:
+                    EmptyView()
                     
-                case 1:
-                    //person
+                case .personDrawer:
                     ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
                     
-                case 2:
-                    //Scene
+                case .sceneDrawer:
                     ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, drawerMode: .background)
                     
                     
-                case 3:
-                    //text
+                case .textDrawer:
                     ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
                 //acho que aqui tem que chamar um text field, nao sei
-                
-                default:
-                    //Person
-                    ChallengesView()
                     
                 }
                 
@@ -99,55 +88,36 @@ struct CoverMenu: View {
                     
                     VStack {
                         
-                        Image("\(tabBarPerson[personToggle])")
+                        Image(tabBarPerson[selectedDrawer == .personDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 1
-                                
-                                if personToggle == 0 {
-                                    personToggle = 1
-                                    sceneToggle = 0
-                                    textToggle = 0
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .personDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .personDrawer
                                 }
                             }
                         
-                        Image("\(tabBarScene[sceneToggle])")
+                        Image(tabBarScene[selectedDrawer == .sceneDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 2
-                                
-                                if sceneToggle == 0 {
-                                    personToggle = 0
-                                    sceneToggle = 1
-                                    textToggle = 0
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .sceneDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .sceneDrawer
                                 }
                             }
                         
-                        Image("\(tabBarText[textToggle])")
+                        Image(tabBarText[selectedDrawer == .textDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 3
-                                
-                                
-                                if textToggle == 0 {
-                                    personToggle = 0
-                                    sceneToggle = 0
-                                    textToggle = 1
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .textDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .textDrawer
                                 }
                             }.padding(.bottom, 180)
                         
@@ -158,7 +128,7 @@ struct CoverMenu: View {
                                 Image(systemName: "arrow.uturn.left.circle.fill")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
-                            }).padding(.horizontal, 8.0)
+                            }).disabled(!storyPage.history.undoAvailable).padding(.horizontal, 8.0)
                             
                             Button(action: {
                                 pageCanvas.redo()
@@ -166,10 +136,8 @@ struct CoverMenu: View {
                                 Image(systemName: "arrow.uturn.right.circle.fill")
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
-                            }).padding(.horizontal, 8.0)
+                            }).disabled(!storyPage.history.redoAvailable).padding(.horizontal, 8.0)
                         }
-                        
-                        
                         
                     }
                     
@@ -180,13 +148,12 @@ struct CoverMenu: View {
                 
                 Spacer()
                 
-                pageCanvas.frame(width: 418, height: 532, alignment: .center).padding(.bottom, UIScreen.main.bounds.height / 7)
-                
+                pageCanvas.frame(width: 418, height: 532, alignment: .center)
+                    .clipped()
+                    .padding(.bottom, UIScreen.main.bounds.height / 7)
                 
                 
                 Spacer(minLength: UIScreen.main.bounds.width / 4.2)
-                
-                
                 
             }
             
@@ -196,6 +163,13 @@ struct CoverMenu: View {
         
         
         
+    }
+    
+    public enum SelectedCoverDrawer {
+        case none
+        case personDrawer
+        case sceneDrawer
+        case textDrawer
     }
 }
 
