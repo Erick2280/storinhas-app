@@ -187,8 +187,9 @@ struct ComponentMenu: View {
                 
                 Spacer()
                 
-                PageCanvas(storyPage: $storyPage, editable: true)
+                pageCanvas
                     .frame(width: 755, height: 507.34, alignment: .center)
+                    .clipped()
                     .padding(.bottom, UIScreen.main.bounds.height / 5)
                     
                 

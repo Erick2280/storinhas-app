@@ -43,9 +43,12 @@ struct PageCanvas: View {
                         .scaledToFit()
                         .foregroundColor(Color("Coral"))
                         .frame(width: getTrashScale(metrics: metrics))
-                        .transition(.offset(y: metrics.size.height * 0.6))
+                        .padding(8)
+                        .background(Color("Barbie"))
+                        .cornerRadius(256)
+                        .transition(.offset(y: metrics.size.height * -0.6))
                         .animation(.easeInOut)
-                        .offset(x:metrics.size.width * 0.2, y: metrics.size.height * 0.7)
+                        .offset(x:metrics.size.width * 0.4, y: metrics.size.height * -0.35)
                 }
                 
                 ForEach(storyPage.elements, id: \.self) { element in
@@ -223,9 +226,10 @@ struct PageCanvas: View {
     func isElementWithinTrashBoundaries() -> Bool {
         if case .movingTopElement(let translationX, let translationY) = self.status {
             if storyPage.elements.count > 0 &&
-                storyPage.elements[getTopElementIndex()].x + Double(translationX) > -0.05 &&
-                storyPage.elements[getTopElementIndex()].x + Double(translationX) < 0.05 &&
-                storyPage.elements[getTopElementIndex()].y + Double(translationY) > 0.425
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) > 0.35 &&
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) < 0.45 &&
+                storyPage.elements[getTopElementIndex()].y + Double(translationY) > -0.40 &&
+                storyPage.elements[getTopElementIndex()].y + Double(translationY) < -0.30
                 {
                 return true
             }
