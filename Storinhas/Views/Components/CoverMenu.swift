@@ -68,7 +68,7 @@ struct CoverMenu: View {
                     
                 case 2:
                     //Scene
-                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, changeBackground: true)
+                    ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, drawerMode: .background)
                     
                     
                 case 3:

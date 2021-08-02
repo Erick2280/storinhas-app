@@ -11,7 +11,7 @@ struct ElementDrawer: View {
     
     var selectedArray: SelectedArray
     @Binding var storyPage: StoryPage
-    var changeBackground: Bool = false
+    @State var drawerMode: DrawerMode = .element
     var body: some View {
         
         VStack{
@@ -30,11 +30,17 @@ struct ElementDrawer: View {
                             if case .array(let elements) = selectedArray {
                                 ForEach(0..<elements.count){ num in
                                     Button(action: {
-                                        if changeBackground {
-                                            storyPage.backgroundPath = .catalogedAsset(named: "\(elements[num])")
-                                        } else {
-                                            storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                        
+                                        switch self.drawerMode {
+                                            case .background:
+                                                storyPage.backgroundPath = .catalogedAsset(named: "\(elements[num])")
+                                            case .element:
+                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                            case .elementWithOverlaidText:
+                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAssetWithOverlaidText(named: "\(elements[num])", overlaidText: NSLocalizedString("EDIT_TEXT", comment: ""))))
                                         }
+                                        
+                                        storyPage.history.backup(storyPage)
                                         
                                     }, label: {
                                         Image("\(elements[num])")
@@ -62,6 +68,12 @@ struct ElementDrawer: View {
     public enum SelectedArray {
         case none
         case array(elements: [String])
+    }
+    
+    public enum DrawerMode {
+        case element
+        case background
+        case elementWithOverlaidText
     }
 
 }

@@ -31,7 +31,7 @@ struct StoryPage {
     var history: StoryPageHistory
 }
 
-class StoryPageHistory {
+class StoryPageHistory: ObservableObject {
     var undoStoryPages: [StoryPage]
     var redoStoryPages: [StoryPage]
     var undoAvailable: Bool
