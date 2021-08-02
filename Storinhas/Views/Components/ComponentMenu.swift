@@ -18,12 +18,8 @@ struct ComponentMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
-    @State var selectedIndex = 0
-    
-    @State var personToggle = 0
-    @State var objectToggle = 0
-    @State var sceneToggle = 0
-    @State var bubbleToggle = 0
+    @State var selectedDrawer: SelectedDrawer = .none
+
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [], history: StoryPageHistory())
     
     
@@ -33,34 +29,24 @@ struct ComponentMenu: View {
             
             ZStack {
                 
-                switch selectedIndex {
+                switch self.selectedDrawer {
                 
-                case 0:
-                    //nada selecionado
-                    Text("")
+                case .none:
+                    EmptyView()
                     
-                case 1:
-                    //person
+                case .personDrawer:
                     ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
                     
-                case 2:
-                    //object
+                case .objectDrawer:
                     ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $storyPage)
                     
-                    
-                    
-                case 3:
-                    //Scene
+                case .sceneDrawer:
                     ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, drawerMode: .background)
                     
-                    
-                    
-                case 4:
+                case .bubbleDrawer:
                     ElementDrawer(selectedArray: .array(elements: bubbleArray), storyPage: $storyPage, drawerMode: .elementWithOverlaidText)
                     
-                    
-                default:
-                    //Person
+                case .challengeDrawer:
                     ChallengesView()
                     
                 }
@@ -82,79 +68,47 @@ struct ComponentMenu: View {
                     
                     VStack {
                         
-                        Image("\(tabBarPerson[personToggle])")
+                        Image(tabBarPerson[selectedDrawer == .personDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 1
-                                
-                                
-                                if personToggle == 0 {
-                                    personToggle = 1
-                                    objectToggle = 0
-                                    sceneToggle = 0
-                                    bubbleToggle = 0
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .personDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .personDrawer
                                 }
                             }
                         
-                        Image("\(tabBarObject[objectToggle])")
+                        Image(tabBarObject[selectedDrawer == .objectDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 2
-                                
-                                
-                                if objectToggle == 0 {
-                                    personToggle = 0
-                                    objectToggle = 1
-                                    sceneToggle = 0
-                                    bubbleToggle = 0
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .objectDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .objectDrawer
                                 }
                             }
                         
-                        Image("\(tabBarScene[sceneToggle])")
+                        Image(tabBarScene[selectedDrawer == .sceneDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 3
-                                
-                                
-                                if sceneToggle == 0 {
-                                    personToggle = 0
-                                    objectToggle = 0
-                                    sceneToggle = 1
-                                    bubbleToggle = 0
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .sceneDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .sceneDrawer
                                 }
                             }
                         
-                        Image("\(tabBarBubble[bubbleToggle])")
+                        Image(tabBarBubble[selectedDrawer == .bubbleDrawer ? 1 : 0])
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
-                                
-                                selectedIndex = 4
-                                
-                                
-                                if bubbleToggle == 0 {
-                                    personToggle = 0
-                                    objectToggle = 0
-                                    sceneToggle = 0
-                                    bubbleToggle = 1
-                                } else {
-                                    print("tela de histórias selecionada")
+                                switch self.selectedDrawer {
+                                    case .bubbleDrawer: self.selectedDrawer = .none
+                                    default: self.selectedDrawer = .bubbleDrawer
                                 }
                             }.padding(.bottom, 8)
                         
@@ -201,6 +155,15 @@ struct ComponentMenu: View {
         }.padding(.top, 18.0)
         .background(Theming.gradients.background)
         
+    }
+    
+    public enum SelectedDrawer {
+        case none
+        case personDrawer
+        case objectDrawer
+        case sceneDrawer
+        case bubbleDrawer
+        case challengeDrawer
     }
 }
 
