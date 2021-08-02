@@ -63,6 +63,7 @@
 		FE85204826B4730800F4E194 /* readOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = readOverlay.swift; sourceTree = "<group>"; };
 		FEB3301726A616E300987730 /* ComponentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentMenu.swift; sourceTree = "<group>"; };
 		FECCB4DA26AF4A1700AC49B0 /* CoverMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverMenu.swift; sourceTree = "<group>"; };
+		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +150,7 @@
 			children = (
 				A783926D269773480010BA01 /* IconButton.swift */,
 				A783926F2697736C0010BA01 /* TextButton.swift */,
+				A750710B269CC5EA0009BCCF /* PageCanvas.swift */,
 				A7E8B8A3269E148B008299AF /* CustomImage.swift */,
 				FEB3301726A616E300987730 /* ComponentMenu.swift */,
 				FE56A16D26A7552C00752E7E /* ElementDrawer.swift */,
@@ -169,6 +171,7 @@
 				A7839265269772E20010BA01 /* ChallengesView.swift */,
 				A78392672697730B0010BA01 /* StoryCreationAssistantView.swift */,
 				A7839269269773160010BA01 /* StoryEditorView.swift */,
+				E55945A626A61A71004D5889 /* TabBarView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -270,6 +273,9 @@
 				FE85204726B4714400F4E194 /* editOverlay.swift in Sources */,
 				FECCB4DB26AF4A1700AC49B0 /* CoverMenu.swift in Sources */,
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
+				E55945A726A61A71004D5889 /* TabBarView.swift in Sources */,
+				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
+				A750710C269CC5EA0009BCCF /* PageCanvas.swift in Sources */,
 				A78392522697715A0010BA01 /* ContentView.swift in Sources */,
 				A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */,
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
@@ -423,7 +429,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Storinhas/Preview Content\"";
-				DEVELOPMENT_TEAM = 838Z5ZBD34;
+				DEVELOPMENT_TEAM = X43VG9VLQG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Storinhas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -445,7 +451,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Storinhas/Preview Content\"";
-				DEVELOPMENT_TEAM = 838Z5ZBD34;
+				DEVELOPMENT_TEAM = X43VG9VLQG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Storinhas/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
