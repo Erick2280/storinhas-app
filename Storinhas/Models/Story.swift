@@ -32,6 +32,16 @@ struct StoryPage {
     var history: StoryPageHistory
 }
 
+class PageManager: ObservableObject {
+    
+    @Published var pageIndex: Int
+    
+    init(pageIndex: Int) {
+        self.pageIndex = 0
+    }
+
+}
+
 class StoryPageHistory {
     var undoStoryPages: [StoryPage]
     var redoStoryPages: [StoryPage]

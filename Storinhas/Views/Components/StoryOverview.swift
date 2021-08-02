@@ -15,6 +15,8 @@ struct StoryOverview: View {
     
     @ObservedObject var manager: Manager = Manager()
 //    @ObservedObject var pageManager: PageManager = PageManager()
+    @EnvironmentObject var pageManager: PageManager
+    
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -114,6 +116,8 @@ struct StoryOverview: View {
                                                 .cornerRadius(5)
                                                 .onTapGesture {
                                                     
+                                                    pageManager.pageIndex = item - 1
+                                                    
                                                     if manager.nextView == false && manager.storyView == false {
                                                         manager.nextView = true
                                                         manager.storyView = true
@@ -121,7 +125,7 @@ struct StoryOverview: View {
                                                         manager.storyView = true
                                                         manager.nextView = true
                                                     }
-                                                    
+                                                   
                                                     
                                                 }
                                         }
@@ -212,7 +216,7 @@ struct StoryOverview: View {
         if manager.coverView == true {
             return AnyView(/*CoverMenu()*/Text("editor de capa"))
         } else if manager.storyView == true {
-            return AnyView(ComponentMenu(story: story))
+            return AnyView(ComponentMenu(pageManager: _pageManager, story: story))
         } else if manager.finishStoryView == true {
             return AnyView(Text("Tela de histórias"))
         } else {
@@ -237,6 +241,6 @@ class Manager: ObservableObject {
 
 struct StoryOverview_Previews: PreviewProvider {
     static var previews: some View {
-        StoryOverview()
+        StoryOverview().environmentObject(PageManager(pageIndex: 0))
     }
 }

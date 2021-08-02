@@ -21,9 +21,9 @@ struct ComponentMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
-//    @ObservedObject var pageManager: PageManager = PageManager()
+    @EnvironmentObject var pageManager: PageManager
     
-    @State var pageIndex = 0
+//    @State var pageIndex = 0
     
     @State var currentBackground = ""
     
@@ -56,23 +56,23 @@ struct ComponentMenu: View {
                         
                     case 1:
                         //person
-                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageIndex])
+                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                     case 2:
                         //object
-                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $story.pages[pageIndex])
+                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                         
                         
                     case 3:
                         //Scene
-                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $story.pages[pageIndex])
+                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                         
                         
                     case 4:
                         //bubble
-                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageIndex])
+                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                         
                     default:
@@ -181,7 +181,7 @@ struct ComponentMenu: View {
 
                     Spacer()
                                       
-                    PageCanvas(storyPage: $story.pages[pageIndex], editable: true)
+                    PageCanvas(storyPage: $story.pages[pageManager.pageIndex], editable: true)
                         .frame(width: 500, height: 500, alignment: .center)
                         .padding(.bottom, UIScreen.main.bounds.height / 7)
                     
@@ -194,11 +194,11 @@ struct ComponentMenu: View {
                     
                     Button(action: {
                         //pagina anterior
-                        if pageIndex == 0 {
+                        if pageManager.pageIndex == 0 {
                             print("error")
                         } else {
-                            pageIndex -= 1
-                            print(pageIndex)
+                            pageManager.pageIndex -= 1
+                            print(pageManager.pageIndex)
                         }
                         
                     }, label: {
@@ -212,11 +212,11 @@ struct ComponentMenu: View {
                     
                     Button(action: {
                         //proxima pagina
-                        if pageIndex == story.pages.count - 1 {
+                        if pageManager.pageIndex == story.pages.count - 1 {
                             print("error")
                         } else {
-                            pageIndex += 1
-                            print(pageIndex)
+                            pageManager.pageIndex += 1
+                            print(pageManager.pageIndex)
                         }
                         
                     }, label: {
@@ -265,18 +265,9 @@ struct ComponentMenu: View {
         
     }
     
-    func getPage() -> Int {
-        return pageIndex
-    }
-    
-    
 }
 
-//class PageManager: ObservableObject {
-//
-//    @Published var pageIndex = 0
-//
-//}
+
 
 
 extension View {

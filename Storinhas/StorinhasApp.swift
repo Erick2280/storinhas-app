@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct StorinhasApp: App {
+    
+    var pageManager: PageManager = PageManager(pageIndex: 0)
+    
     var body: some Scene {
         WindowGroup {
-            StoryOverview()
+            StoryOverview().environmentObject(pageManager)
         }
     }
 }
