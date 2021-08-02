@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A750710C269CC5EA0009BCCF /* RenderCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710B269CC5EA0009BCCF /* RenderCanvas.swift */; };
+		A750710C269CC5EA0009BCCF /* PageCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710B269CC5EA0009BCCF /* PageCanvas.swift */; };
 		A750710E269CC6880009BCCF /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710D269CC6880009BCCF /* Story.swift */; };
 		A7507110269CE1F10009BCCF /* Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710F269CE1F10009BCCF /* Theming.swift */; };
 		A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783924F2697715A0010BA01 /* StorinhasApp.swift */; };
@@ -30,7 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A750710B269CC5EA0009BCCF /* RenderCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCanvas.swift; sourceTree = "<group>"; };
+		A750710B269CC5EA0009BCCF /* PageCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCanvas.swift; sourceTree = "<group>"; };
 		A750710D269CC6880009BCCF /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		A750710F269CE1F10009BCCF /* Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theming.swift; sourceTree = "<group>"; };
 		A783924C2697715A0010BA01 /* Storinhas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storinhas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,7 +139,7 @@
 			children = (
 				A783926D269773480010BA01 /* IconButton.swift */,
 				A783926F2697736C0010BA01 /* TextButton.swift */,
-				A750710B269CC5EA0009BCCF /* RenderCanvas.swift */,
+				A750710B269CC5EA0009BCCF /* PageCanvas.swift */,
 				A7E8B8A3269E148B008299AF /* CustomImage.swift */,
 			);
 			path = Components;
@@ -253,7 +253,7 @@
 				A7839266269772E20010BA01 /* ChallengesView.swift in Sources */,
 				E55945A726A61A71004D5889 /* TabBarView.swift in Sources */,
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
-				A750710C269CC5EA0009BCCF /* RenderCanvas.swift in Sources */,
+				A750710C269CC5EA0009BCCF /* PageCanvas.swift in Sources */,
 				A78392522697715A0010BA01 /* ContentView.swift in Sources */,
 				A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */,
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
