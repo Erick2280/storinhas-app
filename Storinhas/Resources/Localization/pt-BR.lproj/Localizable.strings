@@ -12,6 +12,7 @@
 "ACTION_NEXT" = "Próximo";
 "ACTION_FINISH" = "Finalizar história";
 "ACTION_EDIT_COVER" = "Editar \ncapa";
+"ACTION_CREATE_STORY" = "Criar nova história";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! Bora soltar a imaginação?";

@@ -12,6 +12,7 @@
 "ACTION_NEXT" = "Next";
 "ACTION_FINISH" = "Finish story";
 "ACTION_EDIT_COVER" = "Edit \ncover";
+"ACTION_CREATE_STORY" = "Create new story";
 
 
 /* Onboarding */

@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 class Story: ObservableObject {
     @Published var status: StoryStatus
     @Published var pages: [StoryPage]
@@ -30,6 +31,7 @@ struct StoryPage {
     var backgroundPath: ImagePath?
     var elements: [PageElement]
     var history: StoryPageHistory
+
 }
 
 class PageManager: ObservableObject {

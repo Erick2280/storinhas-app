@@ -21,6 +21,8 @@ struct ComponentMenu: View {
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
+    @ObservedObject var manager: Manager = Manager()
+    
     @EnvironmentObject var pageManager: PageManager
     @EnvironmentObject var story: Story
  
@@ -228,7 +230,8 @@ struct ComponentMenu: View {
                     Spacer()
                     
                     VStack {
-                    
+                        
+                    //VOLTAR PARA OVERVIEW
                     NavigationLink(
                         
                         destination: StoryOverview(),
@@ -237,7 +240,12 @@ struct ComponentMenu: View {
                                 .foregroundColor(Color("DarkPurple"))
                                 .font(.largeTitle)
                                 .onTapGesture {
+                                    manager.coverView = false
+                                    manager.editorView = false
+                                    manager.finishStoryView = false
+                                    
                                     presentationMode.wrappedValue.dismiss()
+                                    
                                 }
                         })
                         .navigationBarBackButtonHidden(true)
@@ -281,12 +289,12 @@ struct RoundedCorner: Shape {
     }
 }
 
-//struct ComponentMenu_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ComponentMenu(story: .constant)
-//        
-//    }
-//}
+struct ComponentMenu_Previews: PreviewProvider {
+    static var previews: some View {
+        ComponentMenu().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8))
+        
+    }
+}
 
 struct LandscapeModifier: ViewModifier {
     let height = UIScreen.main.bounds.width

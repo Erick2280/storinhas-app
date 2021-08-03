@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoriesView: View {
     var body: some View {
-        Text("ONBOARDING_WELCOME")
+        TabBarView()
     }
 }
 
