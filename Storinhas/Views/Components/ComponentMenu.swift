@@ -238,6 +238,7 @@ struct ComponentMenu: View {
                                 .font(.largeTitle)
                                 .onTapGesture {
                                     presentationMode.wrappedValue.dismiss()
+                                    
                                 }
                         })
                         .navigationBarBackButtonHidden(true)
@@ -281,12 +282,12 @@ struct RoundedCorner: Shape {
     }
 }
 
-//struct ComponentMenu_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ComponentMenu(story: .constant)
-//        
-//    }
-//}
+struct ComponentMenu_Previews: PreviewProvider {
+    static var previews: some View {
+        ComponentMenu().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8))
+        
+    }
+}
 
 struct LandscapeModifier: ViewModifier {
     let height = UIScreen.main.bounds.width
