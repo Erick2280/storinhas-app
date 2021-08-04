@@ -31,6 +31,10 @@
 		FE56A16E26A7552C00752E7E /* ElementDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE56A16D26A7552C00752E7E /* ElementDrawer.swift */; };
 		FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3301726A616E300987730 /* ComponentMenu.swift */; };
 
+
+		E55945A726A61A71004D5889 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55945A626A61A71004D5889 /* TabBarView.swift */; };
+
+
 		E55945A726A61A71004D5889 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55945A626A61A71004D5889 /* TabBarView.swift */; };
 
 /* End PBXBuildFile section */
@@ -62,6 +66,10 @@
 		FE2E50AD26A9F1CC00D1F03F /* PageCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCanvas.swift; sourceTree = "<group>"; };
 		FE56A16D26A7552C00752E7E /* ElementDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementDrawer.swift; sourceTree = "<group>"; };
 		FEB3301726A616E300987730 /* ComponentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentMenu.swift; sourceTree = "<group>"; };
+
+
+		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+
 
 		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 
