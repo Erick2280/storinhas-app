@@ -49,6 +49,11 @@ struct Theming_Previews: PreviewProvider {
                 .frame(width: 128, height: 128)
                 .padding(.vertical, 8)
             
+            RoundedRectangle(cornerSize: CGSize(width: 16.0, height: 16.0))
+                .fill(Theming.gradients.background)
+                .frame(width: 128, height: 128)
+                .padding(.vertical, 8)
+            
         }
         .previewLayout(.sizeThatFits)
         .previewDisplayName("Gradients")

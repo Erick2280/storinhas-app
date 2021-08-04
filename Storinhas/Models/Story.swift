@@ -21,7 +21,6 @@ class Story: ObservableObject {
         self.title = title
         
         for _ in 0..<amountOfPages {
-            
             pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
         }
     }
@@ -44,7 +43,7 @@ class PageManager: ObservableObject {
 
 }
 
-class StoryPageHistory {
+class StoryPageHistory: ObservableObject {
     var undoStoryPages: [StoryPage]
     var redoStoryPages: [StoryPage]
     var undoAvailable: Bool
@@ -153,6 +152,7 @@ extension PageElement: Hashable {
 
 enum ImagePath: Equatable, Hashable {
     case catalogedAsset(named: String)
+    case catalogedAssetWithOverlaidText(named: String, overlaidText: String)
 }
 
 enum StoryStatus {

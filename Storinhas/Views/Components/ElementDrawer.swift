@@ -11,8 +11,7 @@ struct ElementDrawer: View {
     
     var selectedArray: SelectedArray
     @Binding var storyPage: StoryPage
-   
-    
+    @State var drawerMode: DrawerMode = .element
     var body: some View {
         
         VStack{
@@ -22,7 +21,7 @@ struct ElementDrawer: View {
                 
                 ZStack(){
                     Rectangle()
-                        .foregroundColor(.blue)
+                        .foregroundColor(.white)
                         .cornerRadius(20.0)
                     
                     ScrollView(.horizontal, showsIndicators: false, content: {
@@ -31,12 +30,23 @@ struct ElementDrawer: View {
                             if case .array(let elements) = selectedArray {
                                 ForEach(0..<elements.count){ num in
                                     Button(action: {
-                                        storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                        
+                                        switch self.drawerMode {
+                                            case .background:
+                                                storyPage.backgroundPath = .catalogedAsset(named: "\(elements[num])")
+                                            case .element:
+                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
+                                            case .elementWithOverlaidText:
+                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAssetWithOverlaidText(named: "\(elements[num])", overlaidText: NSLocalizedString("EDIT_TEXT", comment: ""))))
+                                        }
+                                        
+                                        storyPage.history.backup(storyPage)
+                                        
                                     }, label: {
                                         Image("\(elements[num])")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 95, height: 95)
+                                            .frame(width: 90, height: 90)
                                             .padding(.leading)
                                     })
                             }
@@ -44,9 +54,10 @@ struct ElementDrawer: View {
                         }
                     }).cornerRadius(20)
                     
-                }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/10, alignment: .center)
-                .padding(.bottom, UIScreen.main.bounds.height / 10)
+                }.frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/8, alignment: .center)
+                .padding(.bottom, UIScreen.main.bounds.height / 15)
                 .padding(.leading, UIScreen.main.bounds.width / 8.5)
+                
             }
             
  
@@ -57,6 +68,12 @@ struct ElementDrawer: View {
     public enum SelectedArray {
         case none
         case array(elements: [String])
+    }
+    
+    public enum DrawerMode {
+        case element
+        case background
+        case elementWithOverlaidText
     }
 
 }

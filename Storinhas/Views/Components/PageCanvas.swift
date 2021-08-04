@@ -1,8 +1,8 @@
 //
-//  PageCanvas.swift
+//  RenderCanvas.swift
 //  Storinhas
 //
-//  Created by Nadia Bordoni on 22/07/21.
+//  Created by Erick Almeida on 12/07/21.
 //
 
 import SwiftUI
@@ -14,11 +14,11 @@ struct PageCanvas: View {
     
     @State private var status: CanvasStatus = .idle
     @State private var feedback = UINotificationFeedbackGenerator()
+    @State var currentTextBinding: Binding<String>? = nil
 
     /* REVIEW:
      Bug offbounds
      Bug de elementos idênticos no mesmo lugar
-     Balões
      Inverter
      Refatorar
     */
@@ -34,29 +34,21 @@ struct PageCanvas: View {
             }
 
             ZStack {
+                
                 /* Text(getDebugText()) */
-                
-                if (storyPage.history.undoAvailable) {
-                    Button(action: undo) {
-                        Text("Undo")
-                    }
-                }
-                
-                if (storyPage.history.redoAvailable) {
-                    Button(action: redo) {
-                        Text("Redo")
-                    }.offset(y: metrics.size.height * 0.1)
-                }
-                
+
                 if (isMovingElement()) {
                     Image(systemName: "trash.circle.fill")
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(Color("Coral"))
                         .frame(width: getTrashScale(metrics: metrics))
-                        .transition(.offset(y: metrics.size.height * 0.6))
+                        .padding(8)
+                        .background(Color("Barbie"))
+                        .cornerRadius(256)
+                        .transition(.offset(y: metrics.size.height * -0.6))
                         .animation(.easeInOut)
-                        .offset(y: metrics.size.height * 0.44)
+                        .offset(x:metrics.size.width * 0.4, y: metrics.size.height * -0.35)
                 }
                 
                 ForEach(storyPage.elements, id: \.self) { element in
@@ -99,11 +91,8 @@ struct PageCanvas: View {
                             }
                             .onEnded { _ in
                                 if !editable { return }
-
-                                withAnimation {
-                                    self.commitMove()
-                                    self.status = .idle
-                                }
+                                self.commitMove()
+                                self.status = .idle
                             })
                         )
                         .gesture(LongPressGesture(minimumDuration: 0).onEnded { value in
@@ -139,9 +128,88 @@ struct PageCanvas: View {
                                 }
                             })
                         .frame(width: getScale(metrics: metrics, element: element))
+                    
+                    if case .catalogedAssetWithOverlaidText(_, let overlaidText) = element.imagePath {
+                        
+                        Text(overlaidText)
+                            .font(Theming.fonts.body)
+                            .foregroundColor(Color("DarkPurple"))
+                            .multilineTextAlignment(.center)
+                            .offset(x: offset.x, y: offset.y)
+                            .padding(24)
+                            .onTapGesture {
+                                if !editable { return }
+                                
+                                switch self.status {
+                                    case .idle: break
+                                    default: return
+                                }
+                                
+                                withAnimation {
+                                    currentTextBinding = getElementTextBinding(element: element)
+                                    status = .editingElement
+                                }
+                            }
+                            .frame(width: getScale(metrics: metrics, element: element))
+                            
+                    }
                 }
-            }.frame(width: metrics.size.width, height: metrics.size.height)
+            }
+            .overlay(textEditingOverlay)
+            .frame(width: metrics.size.width, height: metrics.size.height)
         }
+    }
+    
+    var textEditingOverlay: some View {
+        ZStack {
+            if case .editingElement = status {
+                VStack {
+                        HStack {
+                            Text("EDIT_TEXT")
+                                .font(Theming.fonts.title)
+                                .foregroundColor(Color("DarkPurple"))
+                                .padding(.leading, 32)
+                                .padding(.top, 4)
+                            Spacer()
+                            Button(
+                               action: {
+                                    withAnimation {
+                                        status = .idle
+                                        if (currentTextBinding?.wrappedValue == "") {
+                                            currentTextBinding?.wrappedValue = NSLocalizedString("EDIT_TEXT", comment: "")
+                                        }
+                                    }
+                                
+                                    currentTextBinding = nil
+                                    backup()
+                               }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(Color("DarkPurple"))
+                                        .font(.largeTitle)
+                                }
+                        }.padding(.top)
+                        .padding(.trailing)
+
+                        TextEditor(text: currentTextBinding!)
+                            .font(Theming.fonts.body)
+                            .foregroundColor(Color("DarkPurple"))
+                            .padding()
+                            .cornerRadius(30)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Theming.gradients.purple, lineWidth: 4)
+                            )
+                            .padding()
+                            .frame(width: 400, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                
+                     
+                     }.background(Rectangle()
+                                     .cornerRadius(30)
+                                     .shadow(radius: 20)
+                                     .foregroundColor(.white))
+            }
+        }
+             
     }
     
     func backgroundExists() -> Bool {
@@ -158,9 +226,10 @@ struct PageCanvas: View {
     func isElementWithinTrashBoundaries() -> Bool {
         if case .movingTopElement(let translationX, let translationY) = self.status {
             if storyPage.elements.count > 0 &&
-                storyPage.elements[getTopElementIndex()].x + Double(translationX) > -0.05 &&
-                storyPage.elements[getTopElementIndex()].x + Double(translationX) < 0.05 &&
-                storyPage.elements[getTopElementIndex()].y + Double(translationY) > 0.425
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) > 0.35 &&
+                storyPage.elements[getTopElementIndex()].x + Double(translationX) < 0.45 &&
+                storyPage.elements[getTopElementIndex()].y + Double(translationY) > -0.40 &&
+                storyPage.elements[getTopElementIndex()].y + Double(translationY) < -0.30
                 {
                 return true
             }
@@ -256,6 +325,32 @@ struct PageCanvas: View {
         return 0
     }
     
+    func getElementBinding(element: PageElement) -> Binding<PageElement>? {
+        if let i = storyPage.elements.firstIndex(of: element) {
+            return $storyPage.elements[i]
+        }
+        return nil
+    }
+    
+    func getElementTextBinding(element: PageElement) -> Binding<String>? {
+        if let i = storyPage.elements.firstIndex(of: element) {
+            return Binding<String>(
+                get: {
+                    if case .catalogedAssetWithOverlaidText(_, let text) = storyPage.elements[i].imagePath {
+                        return text
+                    }
+                    return ""
+                },
+                set: { value in
+                    if case .catalogedAssetWithOverlaidText(let assetName, _) = storyPage.elements[i].imagePath {
+                        storyPage.elements[i].imagePath = .catalogedAssetWithOverlaidText(named: assetName, overlaidText: value)
+                    }
+                }
+            )
+        }
+        return nil
+    }
+    
     func commitMove() {
         if case .movingTopElement(let translationX, let translationY) = self.status {
             if (storyPage.elements.count > 0) {
@@ -311,6 +406,7 @@ struct PageCanvas: View {
         case holdingElement
         case movingTopElement(translationX: CGFloat, translationY: CGFloat)
         case resizingTopElement(scaleMultiplier: CGFloat)
+        case editingElement
     }
 }
 

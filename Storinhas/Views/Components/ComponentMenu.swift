@@ -11,265 +11,242 @@ struct ComponentMenu: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10"]
-    let objectArray = ["object-1", "object-2", "object-3", "object-4", "object-5", "object-6", "object-7", "object-8", "object-9", "object-10", "object-11", "object-12", "object-13"]
-    let sceneArray = ["scene-1", "scene-2", "scene-3" ]
-    //let bubbleArray = []
+    let personArray = ["persona1-1", "persona1-2", "persona1-3", "persona1-4", "persona2-1", "persona2-2", "persona2-3", "persona2-4", "persona3-1", "persona3-2", "persona3-3","persona3-4", "persona4-1", "persona4-2", "persona4-3","persona4-4","persona5-1", "persona5-2","persona5-3", "persona6-1", "persona6-2","persona6-3", "group-1","group-2","group-3","group-4", "group-5", "group-6", "group-7","group-8", "animals-1", "animals-2", "animals-3", "animals-4", "animals-5", "animals-6", "animals-7", "animals-8", "animals-9", "animals-10", "animals-11"]
+    let objectArray = ["object-1", "object-2", "object-3", "object-4", "object-5", "object-6", "object-7", "object-8", "object-9", "object-10", "object-11", "object-12", "object-13", "object-14"]
+    let sceneArray = ["scene-1", "scene-2", "scene-3", "scene-4", "scene-5", "scene-6"]
+    let bubbleArray = ["bubble-1", "bubble-2", "bubble-3", "bubble-4", "bubble-5"]
     
     let tabBarPerson = ["person", "personSelected"]
     let tabBarObject = ["object", "objectSelected"]
     let tabBarScene = ["scene", "sceneSelected"]
     let tabBarBubble = [ "bubble", "bubbleSelected"]
     
+    @State var selectedDrawer: SelectedComponentDrawer = .none
+
     @ObservedObject var manager: Manager = Manager()
     
+    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [], history: StoryPageHistory())
     @EnvironmentObject var pageManager: PageManager
     @EnvironmentObject var story: Story
- 
-    @State var selectedIndex = 0
-    @State var personToggle = 0
-    @State var objectToggle = 0
-    @State var sceneToggle = 0
-    @State var bubbleToggle = 0
 
-    @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "scene-1"), elements: [PageElement(x: -0.4, y: -0.2, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.3, y: 0.3, scale: 0.1, imagePath: .catalogedAsset(named: "TestRabbit")),PageElement(x: -0.2, y: 0.1, scale: 0.1, imagePath: .catalogedAsset(named: "TestTurtle"))], history: StoryPageHistory())
-    
-    
-    
     var body: some View {
-        
-        NavigationView {
-            
-            ZStack {
+        let pageCanvas = PageCanvas(storyPage: $storyPage, editable: true)
 
+        NavigationView {
+            ZStack {
+                
                 ZStack {
                     
-                    switch selectedIndex {
+                    switch self.selectedDrawer {
                     
-                    case 0:
-                        //nada selecionado
-                        Text("")
+                    case .none:
+                        EmptyView()
                         
-                    case 1:
-                        //person
-                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageManager.pageIndex])
+                    case .personDrawer:
+                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
                         
-                    case 2:
-                        //object
-                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $story.pages[pageManager.pageIndex])
+                    case .objectDrawer:
+                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $storyPage)
                         
+                    case .sceneDrawer:
+                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, drawerMode: .background)
                         
+                    case .bubbleDrawer:
+                        ElementDrawer(selectedArray: .array(elements: bubbleArray), storyPage: $storyPage, drawerMode: .elementWithOverlaidText)
                         
-                    case 3:
-                        //Scene
-                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $story.pages[pageManager.pageIndex])
-                        
-                        
-                        
-                    case 4:
-                        //bubble
-                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageManager.pageIndex])
-                        
-                        
-                    default:
-                        //Person
-                        Text("")
+                    case .challengeDrawer:
+                        ChallengesView()
                         
                     }
                     
                 }
-                
                 
                 HStack {
                     
                     ZStack {
                         
                         Rectangle()
-                            .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame(width: UIScreen.main.bounds.width / 8, height: UIScreen.main.bounds.height, alignment: .center)
                             .cornerRadius(30, corners: [.topRight, .bottomRight])
-                            .shadow(radius: 15)
+                            .shadow(radius: 20)
                             .foregroundColor(Color( red: 237/255, green: 244/255, blue: 255/255))
                             .edgesIgnoringSafeArea(.all)
                         
                         
                         VStack {
                             
-                            Image("\(tabBarPerson[personToggle])")
+                            Image(tabBarPerson[selectedDrawer == .personDrawer ? 1 : 0])
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                                .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                                .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                                 .onTapGesture {
-                                    
-                                    selectedIndex = 1
-                                    
-                                    
-                                    if personToggle == 0 {
-                                        personToggle = 1
-                                        objectToggle = 0
-                                        sceneToggle = 0
-                                        bubbleToggle = 0
-                                    } else {
-                                        print("tela de histórias selecionada")
+                                    switch self.selectedDrawer {
+                                        case .personDrawer: self.selectedDrawer = .none
+                                        default: self.selectedDrawer = .personDrawer
                                     }
                                 }
                             
-                            Image("\(tabBarObject[objectToggle])")
+                            Image(tabBarObject[selectedDrawer == .objectDrawer ? 1 : 0])
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                                .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                                .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                                 .onTapGesture {
-                                    
-                                    selectedIndex = 2
-                                    
-                                    
-                                    if objectToggle == 0 {
-                                        personToggle = 0
-                                        objectToggle = 1
-                                        sceneToggle = 0
-                                        bubbleToggle = 0
-                                    } else {
-                                        print("tela de histórias selecionada")
+                                    switch self.selectedDrawer {
+                                        case .objectDrawer: self.selectedDrawer = .none
+                                        default: self.selectedDrawer = .objectDrawer
                                     }
                                 }
                             
-                            Image("\(tabBarScene[sceneToggle])")
+                            Image(tabBarScene[selectedDrawer == .sceneDrawer ? 1 : 0])
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                                .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                                .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                                 .onTapGesture {
-                                    
-                                    selectedIndex = 3
-                                    
-                                    
-                                    if sceneToggle == 0 {
-                                        personToggle = 0
-                                        objectToggle = 0
-                                        sceneToggle = 1
-                                        bubbleToggle = 0
-                                    } else {
-                                        print("tela de histórias selecionada")
+                                    switch self.selectedDrawer {
+                                        case .sceneDrawer: self.selectedDrawer = .none
+                                        default: self.selectedDrawer = .sceneDrawer
                                     }
                                 }
                             
-                            Image("\(tabBarBubble[bubbleToggle])")
+                            Image(tabBarBubble[selectedDrawer == .bubbleDrawer ? 1 : 0])
                                 .resizable()
                                 .frame(width: UIScreen.main.bounds.width / 14, height: UIScreen.main.bounds.width / 14, alignment: .center)
-                                .padding(.init(top: UIScreen.main.bounds.width / 20, leading: 0, bottom: UIScreen.main.bounds.width / 20, trailing: 0))
+                                .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                                 .onTapGesture {
-                                    
-                                    selectedIndex = 4
-                                    
-                                    
-                                    if bubbleToggle == 0 {
-                                        personToggle = 0
-                                        objectToggle = 0
-                                        sceneToggle = 0
-                                        bubbleToggle = 1
-                                    } else {
-                                        print("tela de histórias selecionada")
+                                    switch self.selectedDrawer {
+                                        case .bubbleDrawer: self.selectedDrawer = .none
+                                        default: self.selectedDrawer = .bubbleDrawer
                                     }
-                                }
+                                }.padding(.bottom, 8)
+                            
+                            HStack{
+                                Button(action: {
+                                    pageCanvas.undo()
+                                }, label: {
+                                    Image(systemName: "arrow.uturn.left.circle.fill")
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                                }).disabled(!storyPage.history.undoAvailable).padding(.horizontal, 8.0)
+                                
+                                Button(action: {
+                                    pageCanvas.redo()
+                                }, label: {
+                                    Image(systemName: "arrow.uturn.right.circle.fill")
+                                        .resizable()
+                                        .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
+                                }).disabled(!storyPage.history.redoAvailable).padding(.horizontal, 8.0)
+                            }
 
-                        }.padding(.bottom, 100)
-    
+
+                            
+                        }
+                        
                     }
+                    
                     .ignoresSafeArea()
-
-                    Spacer()
-                                      
-                    PageCanvas(storyPage: $story.pages[pageManager.pageIndex], editable: true)
-                        .frame(width: 500, height: 500, alignment: .center)
-                        .padding(.bottom, UIScreen.main.bounds.height / 7)
-                    
-                    Spacer(minLength: UIScreen.main.bounds.width / 3.2)
-
-                }
-                
-                HStack {
-                    
-                    
-                    Button(action: {
-                        //pagina anterior
-                        if pageManager.pageIndex == 0 {
-                            print("error")
-                        } else {
-                            pageManager.pageIndex -= 1
-                            print(pageManager.pageIndex)
-                        }
-                        
-                    }, label: {
-                        Image("previousPage")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                            .padding(.leading, UIScreen.main.bounds.width / 7.3)
-                    })
                     
                     Spacer()
                     
-                    Button(action: {
-                        //proxima pagina
-                        if pageManager.pageIndex == story.pages.count - 1 {
-                            print("error")
-                        } else {
-                            pageManager.pageIndex += 1
-                            print(pageManager.pageIndex)
-                        }
+                    pageCanvas
+                        .frame(width: 755, height: 507.34, alignment: .center)
+                        .clipped()
+                        .padding(.bottom, UIScreen.main.bounds.height / 5)
                         
-                    }, label: {
-                        Image("nextPage")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                            .padding(.trailing, UIScreen.main.bounds.width / 80)
-                    })
+                    Spacer(minLength: UIScreen.main.bounds.width / 15)
                     
-                }
-                .padding(.bottom, UIScreen.main.bounds.height / 7)
-                
-                HStack {
+                    HStack {
                     
-                    Spacer()
                     
-                    VStack {
-                        
-                    //VOLTAR PARA OVERVIEW
-                    NavigationLink(
-                        
-                        destination: StoryOverview(),
-                        label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(Color("DarkPurple"))
-                                .font(.largeTitle)
-                                .onTapGesture {
-                                    manager.coverView = false
-                                    manager.editorView = false
-                                    manager.finishStoryView = false
-                                    
-                                    presentationMode.wrappedValue.dismiss()
-                                    
-                                }
+                        Button(action: {
+                            //pagina anterior
+                            if pageManager.pageIndex == 0 {
+                                print("error")
+                            } else {
+                                pageManager.pageIndex -= 1
+                                print(pageManager.pageIndex)
+                            }
+                            
+                        }, label: {
+                            Image("previousPage")
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                                .padding(.leading, UIScreen.main.bounds.width / 7.3)
                         })
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                        .navigationBarTitle("")
                         
                         Spacer()
                         
-                    }.padding(.top, UIScreen.main.bounds.height / 15)
+                        Button(action: {
+                            //proxima pagina
+                            if pageManager.pageIndex == story.pages.count - 1 {
+                                print("error")
+                            } else {
+                                pageManager.pageIndex += 1
+                                print(pageManager.pageIndex)
+                            }
+                            
+                        }, label: {
+                            Image("nextPage")
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                                .padding(.trailing, UIScreen.main.bounds.width / 80)
+                        })
+                        
+                    }
+                    .padding(.bottom, UIScreen.main.bounds.height / 7)
                     
-                }.padding(.trailing, UIScreen.main.bounds.width / 40)
+                    HStack {
+                        
+                        Spacer()
+                        
+                        VStack {
+                            
+                        //VOLTAR PARA OVERVIEW
+                        NavigationLink(
+                            
+                            destination: StoryOverview(),
+                            label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(Color("DarkPurple"))
+                                    .font(.largeTitle)
+                                    .onTapGesture {
+                                        manager.coverView = false
+                                        manager.editorView = false
+                                        manager.finishStoryView = false
+                                        
+                                        presentationMode.wrappedValue.dismiss()
+                                        
+                                    }
+                            })
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarHidden(true)
+                            .navigationBarTitle("")
+                            
+                            Spacer()
+                            
+                        }.padding(.top, UIScreen.main.bounds.height / 15)
+                        
+                    }.padding(.trailing, UIScreen.main.bounds.width / 40)
+                    
+                }
                 
-            }
+            }.padding(.top, 18.0)
+            .background(Theming.gradients.background)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("", displayMode: .inline)
-        
     }
     
+    public enum SelectedComponentDrawer {
+        case none
+        case personDrawer
+        case objectDrawer
+        case sceneDrawer
+        case bubbleDrawer
+        case challengeDrawer
+    }
 }
-
-
 
 
 extension View {
@@ -292,32 +269,5 @@ struct RoundedCorner: Shape {
 struct ComponentMenu_Previews: PreviewProvider {
     static var previews: some View {
         ComponentMenu().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8))
-        
-    }
-}
-
-struct LandscapeModifier: ViewModifier {
-    let height = UIScreen.main.bounds.width
-    let width = UIScreen.main.bounds.height
-    
-    var isPad: Bool {
-        return height >= 768
-    }
-    
-    var isRegularWidth: Bool {
-        return height >= 414
-    }
-    
-    func body(content: Content) -> some View {
-        content
-            .previewLayout(.fixed(width: width, height: height))
-            .environment(\.horizontalSizeClass, isRegularWidth ? .regular: .compact)
-            .environment(\.verticalSizeClass, isPad ? .regular: .compact)
-    }
-}
-
-extension View {
-    func landscape() -> some View {
-        self.modifier(LandscapeModifier())
     }
 }

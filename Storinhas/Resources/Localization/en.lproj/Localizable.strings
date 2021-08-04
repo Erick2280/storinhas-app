@@ -10,14 +10,17 @@
 "ACTION_SKIP" = "Skip";
 "ACTION_SAVE" = "Save";
 "ACTION_NEXT" = "Next";
-"ACTION_FINISH" = "Finish story";
+"ACTION_FINISH_STORY" = "Finish story";
 "ACTION_EDIT_COVER" = "Edit \ncover";
 "ACTION_CREATE_STORY" = "Create new story";
-
+"ACTION_FINISH" = "Finish";
+"ACTION_UNDO" = "Undo";
+"ACTION_REDO" = "Redo";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! Let's unleash the imagination?";
 "ONBOARDING_EXPLANATION" = "Here you can create your own stories!";
 
 /* Dialogs */
+"EDIT_TEXT" = "Edit text";
 

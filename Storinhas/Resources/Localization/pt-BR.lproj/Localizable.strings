@@ -10,13 +10,17 @@
 "ACTION_SKIP" = "Pular";
 "ACTION_SAVE" = "Salvar";
 "ACTION_NEXT" = "Próximo";
-"ACTION_FINISH" = "Finalizar história";
+"ACTION_FINISH_STORY" = "Finalizar história";
 "ACTION_EDIT_COVER" = "Editar \ncapa";
 "ACTION_CREATE_STORY" = "Criar nova história";
+"ACTION_FINISH" = "Concluir";
+"ACTION_UNDO" = "Desfazer";
+"ACTION_REDO" = "Refazer";
 
 /* Onboarding */
 "ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! Bora soltar a imaginação?";
 "ONBOARDING_EXPLANATION" = "Aqui você pode criar suas próprias histórias!";
 
 /* Dialogs */
+"EDIT_TEXT" = "Editar texto";
 
