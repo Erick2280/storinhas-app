@@ -134,7 +134,7 @@ struct StoryOverview: View {
                     NavigationLink(
                         destination: getDestination(),
                         label: {
-                            TextButton(text: Binding.constant("ACTION_FINISH"), style: .primary, action: {
+                            TextButton(text: Binding.constant("ACTION_FINISH_STORY"), style: .primary, action: {
                                 if manager.nextView == false && manager.finishStoryView == false {
                                     manager.nextView = true
                                     manager.finishStoryView = true
