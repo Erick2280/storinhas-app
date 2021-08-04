@@ -129,9 +129,7 @@ struct TabBarView: View {
                 .ignoresSafeArea()
                 
                 Spacer()
-                
 
-                
             }
             
         }
@@ -140,26 +138,6 @@ struct TabBarView: View {
 }
 
 
-<<<<<<< HEAD
-=======
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
-    }
-}
-
-struct RoundedCorner: Shape {
-    
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
-    }
-}
-
->>>>>>> e955a4f622f21f2bb3ba16fff7e1914870795eca
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView()

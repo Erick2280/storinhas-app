@@ -15,12 +15,11 @@ struct StoryOverview: View {
     
     @ObservedObject var manager: Manager = Manager()
     @EnvironmentObject var pageManager: PageManager
-<<<<<<< HEAD
-=======
+
     
     var thumbnailArray: [Image] = []
     
->>>>>>> e955a4f622f21f2bb3ba16fff7e1914870795eca
+
     @Environment(\.presentationMode) var presentationMode
     
     
@@ -50,11 +49,10 @@ struct StoryOverview: View {
                                 label: {
                                     ZStack {
                                         Rectangle()
-<<<<<<< HEAD
+
                                             .frame(width: UIScreen.main.bounds.height / 5, height: UIScreen.main.bounds.width / 5, alignment: .center)
-=======
                                             .frame(width: UIScreen.main.bounds.height / 5, height: UIScreen.main.bounds.width / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
->>>>>>> e955a4f622f21f2bb3ba16fff7e1914870795eca
+
                                             .foregroundColor(Color.init(red: 225/255, green: 225/255, blue: 225/255))
                                             .border(Color.init(red: 196/255, green: 196/255, blue: 196/255), width: 5)
                                             .cornerRadius(5)
@@ -140,7 +138,6 @@ struct StoryOverview: View {
                                 if manager.nextView == false && manager.finishStoryView == false {
                                     manager.nextView = true
                                     manager.finishStoryView = true
-<<<<<<< HEAD
                                     
                                     manager.coverView = false
                                     manager.editorView = false
@@ -155,11 +152,6 @@ struct StoryOverview: View {
                                     manager.finishStoryView = true
                                     manager.nextView = true
   
-=======
-                                } else {
-                                    manager.finishStoryView = true
-                                    manager.nextView = true
->>>>>>> e955a4f622f21f2bb3ba16fff7e1914870795eca
                                 }
                             })
                                 

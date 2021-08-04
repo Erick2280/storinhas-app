@@ -15,11 +15,9 @@ struct StorinhasApp: App {
     var body: some Scene {
         WindowGroup {
 
-<<<<<<< HEAD
+
             TabBarView().environmentObject(pageManager).environmentObject(story)
-=======
-            StoryOverview().environmentObject(pageManager).environmentObject(story)
->>>>>>> e955a4f622f21f2bb3ba16fff7e1914870795eca
+
 
         }
     }
