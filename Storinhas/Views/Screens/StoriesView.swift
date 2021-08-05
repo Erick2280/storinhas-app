@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StoriesView: View {
-    @EnvironmentObject var savedStoriesManager: SavedStoriesManager
+    @EnvironmentObject var storiesManager: StoriesManager
     
     var body: some View {
         
@@ -26,7 +26,7 @@ struct StoriesView: View {
                 Spacer()
             }.padding(.top, UIScreen.main.bounds.height / 5.5)
             
-            if savedStoriesManager.noStoriesSaved == true {
+            if storiesManager.stories.count == 0 {
                 VStack {
                     Spacer()
                     Spacer()
@@ -56,6 +56,6 @@ struct StoriesView: View {
 
 struct StoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        StoriesView().environmentObject(SavedStoriesManager(noStoriesSaved: true))
+        StoriesView().environmentObject(StoriesManager())
     }
 }

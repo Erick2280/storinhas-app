@@ -13,14 +13,11 @@
 		A75E481426BC93B20090F269 /* StoryContainer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75E481226BC93B20090F269 /* StoryContainer+CoreDataClass.swift */; };
 		A75E481526BC93B20090F269 /* StoryContainer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75E481326BC93B20090F269 /* StoryContainer+CoreDataProperties.swift */; };
 		A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783924F2697715A0010BA01 /* StorinhasApp.swift */; };
-		A78392522697715A0010BA01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78392512697715A0010BA01 /* ContentView.swift */; };
 		A78392542697715C0010BA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78392532697715C0010BA01 /* Assets.xcassets */; };
 		A78392572697715C0010BA01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78392562697715C0010BA01 /* Preview Assets.xcassets */; };
 		A7839264269772C90010BA01 /* StoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7839263269772C90010BA01 /* StoriesView.swift */; };
 		A7839266269772E20010BA01 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7839265269772E20010BA01 /* ChallengesView.swift */; };
-		A78392682697730B0010BA01 /* StoryCreationAssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78392672697730B0010BA01 /* StoryCreationAssistantView.swift */; };
 		A783926A269773160010BA01 /* StoryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7839269269773160010BA01 /* StoryEditorView.swift */; };
-		A783926E269773480010BA01 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783926D269773480010BA01 /* IconButton.swift */; };
 		A78392702697736C0010BA01 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783926F2697736C0010BA01 /* TextButton.swift */; };
 		A7839275269773F20010BA01 /* LondrinaSolid-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839271269773F10010BA01 /* LondrinaSolid-Regular.ttf */; };
 		A7839276269773F20010BA01 /* LondrinaSolid-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839272269773F10010BA01 /* LondrinaSolid-Light.ttf */; };
@@ -49,15 +46,12 @@
 		A75E481326BC93B20090F269 /* StoryContainer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryContainer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A783924C2697715A0010BA01 /* Storinhas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storinhas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A783924F2697715A0010BA01 /* StorinhasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorinhasApp.swift; sourceTree = "<group>"; };
-		A78392512697715A0010BA01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A78392532697715C0010BA01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A78392562697715C0010BA01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A78392582697715C0010BA01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7839263269772C90010BA01 /* StoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesView.swift; sourceTree = "<group>"; };
 		A7839265269772E20010BA01 /* ChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesView.swift; sourceTree = "<group>"; };
-		A78392672697730B0010BA01 /* StoryCreationAssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCreationAssistantView.swift; sourceTree = "<group>"; };
 		A7839269269773160010BA01 /* StoryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditorView.swift; sourceTree = "<group>"; };
-		A783926D269773480010BA01 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		A783926F2697736C0010BA01 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		A7839271269773F10010BA01 /* LondrinaSolid-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LondrinaSolid-Regular.ttf"; sourceTree = "<group>"; };
 		A7839272269773F10010BA01 /* LondrinaSolid-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LondrinaSolid-Light.ttf"; sourceTree = "<group>"; };
@@ -161,7 +155,6 @@
 		A7839261269771BC0010BA01 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A783926D269773480010BA01 /* IconButton.swift */,
 				A783926F2697736C0010BA01 /* TextButton.swift */,
 				A7E8B8A3269E148B008299AF /* CustomImage.swift */,
 				FEB3301726A616E300987730 /* ComponentMenu.swift */,
@@ -178,10 +171,8 @@
 		A78392622697722D0010BA01 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A78392512697715A0010BA01 /* ContentView.swift */,
 				A7839263269772C90010BA01 /* StoriesView.swift */,
 				A7839265269772E20010BA01 /* ChallengesView.swift */,
-				A78392672697730B0010BA01 /* StoryCreationAssistantView.swift */,
 				E583D30126B0A71100529E83 /* StoryOverview.swift */,
 				E523318A26BC86BE00246EA9 /* OnboardingView.swift */,
 				A7839269269773160010BA01 /* StoryEditorView.swift */,
@@ -285,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A783926E269773480010BA01 /* IconButton.swift in Sources */,
 				A75E481526BC93B20090F269 /* StoryContainer+CoreDataProperties.swift in Sources */,
 				A7839266269772E20010BA01 /* ChallengesView.swift in Sources */,
 				E54B0C1826BB26D400694664 /* PopUpManager.swift in Sources */,
@@ -295,7 +285,6 @@
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
 				E55945A726A61A71004D5889 /* TabBarView.swift in Sources */,
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
-				A78392522697715A0010BA01 /* ContentView.swift in Sources */,
 				A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */,
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
 				A783926A269773160010BA01 /* StoryEditorView.swift in Sources */,
@@ -303,7 +292,6 @@
 				A75E481126BC937A0090F269 /* Storinhas.xcdatamodeld in Sources */,
 				FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */,
 				A75E481426BC93B20090F269 /* StoryContainer+CoreDataClass.swift in Sources */,
-				A78392682697730B0010BA01 /* StoryCreationAssistantView.swift in Sources */,
 				FE2E50AE26A9F1CC00D1F03F /* PageCanvas.swift in Sources */,
 				FE56A16E26A7552C00752E7E /* ElementDrawer.swift in Sources */,
 				FE37B58F26B1F3160076D48E /* saveOverlay.swift in Sources */,

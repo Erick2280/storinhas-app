@@ -18,7 +18,7 @@ struct StoryOverview: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var story: Story
     @EnvironmentObject var popUpManager: PopUpManager
-    @EnvironmentObject var savedStoriesManager: SavedStoriesManager
+    @EnvironmentObject var StoriesManager: StoriesManager
     
     let layout = [
         
@@ -160,8 +160,7 @@ struct StoryOverview: View {
                                     manager.editorView = false
                                     manager.storyOverView = false
                                     
-                                } else if manager.nextView == false && manager.finishStoryView == false && savedStoriesManager.noStoriesSaved == true {
-                                    savedStoriesManager.noStoriesSaved = false
+                                } else if manager.nextView == false && manager.finishStoryView == false {
 
                                         manager.nextView = true
                                         manager.finishStoryView = true
@@ -247,7 +246,7 @@ struct StoryOverview: View {
             if manager.coverView == true {
                 return AnyView(CoverMenu())
             } else if manager.editorView == true {
-                return AnyView(ComponentMenu(pageManager: _pageManager, story: _story))
+                return AnyView(ComponentMenu(pageManager: _pageManager))
             } else if manager.finishStoryView == true {
                 return AnyView(TabBarView(selectedIndex: 1, bookToggle: 1, pencilToggle: 0, crownToggle: 0, tabBarToggle: 0))
             } else {
@@ -270,6 +269,6 @@ struct StoryOverview: View {
     struct StoryOverview_Previews: PreviewProvider {
         
         static var previews: some View {
-            StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8)).environmentObject(PopUpManager(showPopUp: false)).environmentObject(SavedStoriesManager(noStoriesSaved: true))
+            StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8)).environmentObject(PopUpManager(showPopUp: false)).environmentObject(StoriesManager())
         }
     }

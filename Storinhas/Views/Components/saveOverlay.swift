@@ -12,7 +12,7 @@ struct saveOverlay: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var popUpManager: PopUpManager
     @ObservedObject var manager: Manager
-    @EnvironmentObject var savedStoriesManager: SavedStoriesManager
+    @EnvironmentObject var storiesManager: StoriesManager
     
     @State private var savedStory: Bool = false
     
@@ -59,6 +59,7 @@ struct saveOverlay: View {
                     label: {
                         TextButton(text: .constant("ACTION_SAVE"), style: .primary, padding: 30, action: {
                             //a historia fica visualizavel na home e tambem possível de ler
+                            /*
                             if savedStoriesManager.noStoriesSaved == true {
                                 savedStoriesManager.noStoriesSaved = false
                                 manager.nextView = true
@@ -67,6 +68,7 @@ struct saveOverlay: View {
                                 manager.nextView = true
                                 savedStory = true
                             }
+                            */
                         })
                         .padding()
                     })
@@ -110,6 +112,6 @@ struct saveOverlay: View {
 
 struct saveOverlay_Previews: PreviewProvider {
     static var previews: some View {
-        saveOverlay(manager: Manager()).environmentObject(PopUpManager(showPopUp: true)).environmentObject(SavedStoriesManager(noStoriesSaved: true))
+        saveOverlay(manager: Manager()).environmentObject(PopUpManager(showPopUp: true)).environmentObject(StoriesManager())
     }
 }
