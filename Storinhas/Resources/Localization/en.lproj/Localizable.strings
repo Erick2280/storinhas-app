@@ -9,7 +9,10 @@
 /* Actions */
 "ACTION_SKIP" = "Skip";
 "ACTION_SAVE" = "Save";
+"ACTION_DONT_SAVE" = "Don't save";
 "ACTION_NEXT" = "Next";
+"ACTION_KEEP_READING" = "Keep reading";
+"ACTION_GO_TO_EDITOR" = "Go to editor";
 "ACTION_FINISH_STORY" = "Finish story";
 "ACTION_EDIT_COVER" = "Edit \ncover";
 "ACTION_CREATE_STORY" = "Create new story";
@@ -18,9 +21,15 @@
 "ACTION_REDO" = "Redo";
 
 /* Onboarding */
-"ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! Let's unleash the imagination?";
+"ONBOARDING_WELCOME" = "Hi! Welcome to Storinhas! \nLet's unleash the imagination?";
 "ONBOARDING_EXPLANATION" = "Here you can create your own stories!";
 
 /* Dialogs */
+"EDITOR_TITLE" = "Story editor";
+"CHALLENGES_TITLE" = "Challenges";
+"STORIES_TITLE" = "Stories";
 "EDIT_TEXT" = "Edit text";
-
+"SAVE_WARNING" = "Would you like to save this story?";
+"EDIT_WARNING" = "Would you like to edit this story?";
+"CHALLENGES_WIP_WARNING" = "Oops! The Challenge section isn't ready yet, \nbut we're working on it! \n\nStay tuned for the next update!";
+"STORIES_WIP_WARNING" = "You don't have any stories yet! \nWhat about creating one right now?";

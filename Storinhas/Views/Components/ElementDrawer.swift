@@ -37,7 +37,7 @@ struct ElementDrawer: View {
                                             case .element:
                                                 storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAsset(named: "\(elements[num])" )) )
                                             case .elementWithOverlaidText:
-                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath:.catalogedAssetWithOverlaidText(named: "\(elements[num])", overlaidText: NSLocalizedString("EDIT_TEXT", comment: ""))))
+                                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.2, imagePath:.catalogedAssetWithOverlaidText(named: "\(elements[num])", overlaidText: NSLocalizedString("EDIT_TEXT", comment: ""))))
                                         }
                                         
                                         storyPage.history.backup(storyPage)

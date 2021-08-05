@@ -22,16 +22,16 @@ struct editOverlay: View {
                 })
                 .padding(.leading, UIScreen.main.bounds.width / 2.5)
                 .padding()
-            Text("Quer editar esta história?")
+            Text("EDIT_WARNING")
                 .font(Theming.fonts.title)
                 .foregroundColor(Color("DarkPurple"))
             HStack(){
-                TextButton(text: .constant("Continuar lendo"), style: .secondary, action: {
+                TextButton(text: .constant("ACTION_KEEP_READING"), style: .secondary, action: {
                     //a historia nao é salva para visualização
                 })
                 .padding()
                 
-                TextButton(text: .constant("Ir para o editor"), style: .primary, action: {
+                TextButton(text: .constant("ACTION_GO_TO_EDITOR"), style: .primary, action: {
                     //a historia fica visualizavel na home e tambem possível de ler
                 })
                 .padding()

@@ -8,13 +8,54 @@
 import SwiftUI
 
 struct StoriesView: View {
+    @EnvironmentObject var savedStoriesManager: SavedStoriesManager
+    
     var body: some View {
-        TabBarView()
+        
+        ZStack {
+            
+            VStack {
+                
+                HStack {
+                    Text("STORIES_TITLE")
+                        .font(Theming.fonts.title)
+                        .foregroundColor(Color("DarkPurple"))
+                    Spacer()
+                }.padding(.leading, UIScreen.main.bounds.width / 9)
+                
+                Spacer()
+            }.padding(.top, UIScreen.main.bounds.height / 5.5)
+            
+            if savedStoriesManager.noStoriesSaved == true {
+                VStack {
+                    Spacer()
+                    Spacer()
+                    Image("onboardingCat")
+                        .resizable()
+                        .frame(width: 400, height: 400, alignment: .center)
+                    Spacer()
+                    Text("STORIES_WIP_WARNING")
+                        .font(Theming.fonts.title)
+                        .foregroundColor(Color("DarkPurple"))
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                }
+                .padding(.leading, UIScreen.main.bounds.width / 15)
+            } else {
+                
+                
+                Text("grid com hsitórias salvas")
+                
+            }
+            
+            
+        }
+        
     }
 }
 
 struct StoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        StoriesView()
+        StoriesView().environmentObject(SavedStoriesManager(noStoriesSaved: true))
     }
 }

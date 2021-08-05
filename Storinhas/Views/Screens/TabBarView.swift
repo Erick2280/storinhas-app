@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    
+        
     let tabBarBook = ["book", "bookSelected"]
     let tabBarPencil = ["pencil", "pencilSelected"]
     let tabBarCrown = ["crown", "crownSelected"]
@@ -31,7 +31,7 @@ struct TabBarView: View {
                     
                 case 0:
                     //onboarding
-                Text("tela de onboarding")
+                OnboardingView()
                     
                 case 1:
                     //historias
@@ -132,7 +132,7 @@ struct TabBarView: View {
 
             }
             
-        }
+        }.statusBar(hidden: true)
 
     }
 }

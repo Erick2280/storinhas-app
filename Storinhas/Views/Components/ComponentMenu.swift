@@ -30,7 +30,7 @@ struct ComponentMenu: View {
     @EnvironmentObject var story: Story
 
     var body: some View {
-        let pageCanvas = PageCanvas(storyPage: $storyPage, editable: true)
+        let pageCanvas = PageCanvas(storyPage: $story.pages[pageManager.pageIndex], editable: true)
 
         NavigationView {
             ZStack {
@@ -43,16 +43,16 @@ struct ComponentMenu: View {
                         EmptyView()
                         
                     case .personDrawer:
-                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
+                        ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                     case .objectDrawer:
-                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $storyPage)
+                        ElementDrawer(selectedArray: .array(elements: objectArray), storyPage: $story.pages[pageManager.pageIndex])
                         
                     case .sceneDrawer:
-                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $storyPage, drawerMode: .background)
+                        ElementDrawer(selectedArray: .array(elements: sceneArray), storyPage: $story.pages[pageManager.pageIndex], drawerMode: .background)
                         
                     case .bubbleDrawer:
-                        ElementDrawer(selectedArray: .array(elements: bubbleArray), storyPage: $storyPage, drawerMode: .elementWithOverlaidText)
+                        ElementDrawer(selectedArray: .array(elements: bubbleArray), storyPage: $story.pages[pageManager.pageIndex], drawerMode: .elementWithOverlaidText)
                         
                     case .challengeDrawer:
                         ChallengesView()
@@ -142,7 +142,6 @@ struct ComponentMenu: View {
                         }
                         
                     }
-                    
                     .ignoresSafeArea()
                     
                     Spacer()
@@ -151,85 +150,88 @@ struct ComponentMenu: View {
                         .frame(width: 755, height: 507.34, alignment: .center)
                         .clipped()
                         .padding(.bottom, UIScreen.main.bounds.height / 5)
+//                        .padding(.leading, UIScreen.main.bounds.width / 7)
                         
-                    Spacer(minLength: UIScreen.main.bounds.width / 15)
-                    
-                    HStack {
-                    
-                    
-                        Button(action: {
-                            //pagina anterior
-                            if pageManager.pageIndex == 0 {
-                                print("error")
-                            } else {
-                                pageManager.pageIndex -= 1
-                                print(pageManager.pageIndex)
-                            }
-                            
-                        }, label: {
-                            Image("previousPage")
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                                .padding(.leading, UIScreen.main.bounds.width / 7.3)
-                        })
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            //proxima pagina
-                            if pageManager.pageIndex == story.pages.count - 1 {
-                                print("error")
-                            } else {
-                                pageManager.pageIndex += 1
-                                print(pageManager.pageIndex)
-                            }
-                            
-                        }, label: {
-                            Image("nextPage")
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                                .padding(.trailing, UIScreen.main.bounds.width / 80)
-                        })
-                        
-                    }
-                    .padding(.bottom, UIScreen.main.bounds.height / 7)
-                    
-                    HStack {
-                        
-                        Spacer()
-                        
-                        VStack {
-                            
-                        //VOLTAR PARA OVERVIEW
-                        NavigationLink(
-                            
-                            destination: StoryOverview(),
-                            label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(Color("DarkPurple"))
-                                    .font(.largeTitle)
-                                    .onTapGesture {
-                                        manager.coverView = false
-                                        manager.editorView = false
-                                        manager.finishStoryView = false
-                                        
-                                        presentationMode.wrappedValue.dismiss()
-                                        
-                                    }
-                            })
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarHidden(true)
-                            .navigationBarTitle("")
-                            
-                            Spacer()
-                            
-                        }.padding(.top, UIScreen.main.bounds.height / 15)
-                        
-                    }.padding(.trailing, UIScreen.main.bounds.width / 40)
-                    
+                    Spacer()
+ 
                 }
                 
-            }.padding(.top, 18.0)
+                //VOLTAR PARA OVERVIEW
+                HStack {
+                    
+                    Spacer()
+                    
+                    VStack {
+                        
+                    
+                    NavigationLink(
+                        
+                        destination: StoryOverview(),
+                        label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(Color("DarkPurple"))
+                                .font(.largeTitle)
+                                .onTapGesture {
+                                    manager.coverView = false
+                                    manager.editorView = false
+                                    manager.finishStoryView = false
+                                    
+                                    presentationMode.wrappedValue.dismiss()
+                                    
+                                }
+                        })
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                        .navigationBarTitle("")
+                        
+                        Spacer()
+                        
+                    }.padding(.top, UIScreen.main.bounds.height / 30)
+                    
+                }.padding(.trailing, UIScreen.main.bounds.width / 60)
+                
+                HStack {
+                    Button(action: {
+                        //pagina anterior
+                        if pageManager.pageIndex == 0 {
+                            print("error")
+                        } else {
+                            pageManager.pageIndex -= 1
+                            print(pageManager.pageIndex)
+                        }
+                        
+                    }, label: {
+                        Image("previousPage")
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                            .padding(.leading, UIScreen.main.bounds.width / 7.5)
+                    })
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        //proxima pagina
+                        if pageManager.pageIndex == story.pages.count - 1 {
+                            print("error")
+                        } else {
+                            pageManager.pageIndex += 1
+                            print(pageManager.pageIndex)
+                        }
+                        
+                    }, label: {
+                        Image("nextPage")
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                            .padding(.trailing, UIScreen.main.bounds.width / 90)
+                    })
+                    
+                }
+                .padding(.bottom, UIScreen.main.bounds.height / 4.5)
+                
+                
+            }
+            .edgesIgnoringSafeArea(.all)
+            .statusBar(hidden: true)
             .background(Theming.gradients.background)
         }
         .navigationViewStyle(StackNavigationViewStyle())

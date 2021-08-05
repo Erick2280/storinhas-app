@@ -11,11 +11,13 @@ import SwiftUI
 struct StorinhasApp: App {
     var story: Story = Story(title: "", orientation: .landscape, amountOfPages: 8)
     var pageManager: PageManager = PageManager(pageIndex: 0)
+    var popUpManager: PopUpManager = PopUpManager(showPopUp: false)
+    var savedStoriesManager: SavedStoriesManager  = SavedStoriesManager(noStoriesSaved: true)
     
     var body: some Scene {
         WindowGroup {
 
-            TabBarView().environmentObject(pageManager).environmentObject(story)
+            TabBarView().environmentObject(pageManager).environmentObject(story).environmentObject(popUpManager).environmentObject(savedStoriesManager)
 
         }
     }

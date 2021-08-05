@@ -195,7 +195,7 @@ struct PageCanvas: View {
                                     withAnimation {
                                         status = .idle
                                         if (currentTextBinding?.wrappedValue == "") {
-                                            currentTextBinding?.wrappedValue = NSLocalizedString("EDIT_TEXT", comment: "")
+                                            currentTextBinding?.wrappedValue = NSLocalizedString("", comment: "")
                                         }
                                     }
                                 

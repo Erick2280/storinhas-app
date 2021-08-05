@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StoryEditorView: View {
     
+    @EnvironmentObject var popUpManager: PopUpManager
+    
     init(){
         UINavigationBar.setAnimationsEnabled(false)
     }
@@ -18,27 +20,46 @@ struct StoryEditorView: View {
     var body: some View {
         
         NavigationView {
-            
-            NavigationLink(
-                destination: getDestination(),
-                label: {
-                    TextButton(text: Binding.constant("ACTION_CREATE_STORY"), style: .primary, action: {
-                        manager.storyOverView = true
-                    })
+            ZStack {
+                
+                VStack {
                     
-                })
-                .navigationBarBackButtonHidden(true)
-                .navigationBarHidden(true)
-                .navigationBarTitle("")
+                    HStack {
+                        Text("EDITOR_TITLE")
+                            .font(Theming.fonts.title)
+                            .foregroundColor(Color("DarkPurple"))
+                        Spacer()
+                    }.padding(.leading, UIScreen.main.bounds.width / 9)
+                    
+                    Spacer()
+                }.padding(.top, UIScreen.main.bounds.height / 5.5)
+                
+                NavigationLink(
+                    destination: getDestination(),
+                    label: {
+                        TextButton(text: Binding.constant("ACTION_CREATE_STORY"), style: .primary, action: {
+                            manager.storyOverView = true
+    //                        popUpManager.showPopUp = false
+                        })
+                        
+                    })
+                    .fullScreenCover(isPresented: $manager.storyOverView, content: {
+                        getDestination()
+                    })
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarHidden(true)
+                    .navigationBarTitle("")
+            }
+            .statusBar(hidden: true)
+            
             
         }
+
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("", displayMode: .inline)
-        .fullScreenCover(isPresented: $manager.storyOverView, content: {
-            getDestination()
-        })
+        
         
         
     }
@@ -56,6 +77,6 @@ struct StoryEditorView: View {
 
 struct StoryEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryEditorView()
+        StoryEditorView().environmentObject(PopUpManager(showPopUp: false))
     }
 }

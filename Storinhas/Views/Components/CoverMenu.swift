@@ -16,7 +16,7 @@ struct CoverMenu: View {
     let tabBarText = ["text", "textSelected"]
     
     @State var selectedDrawer: SelectedCoverDrawer = .none
-
+    
     @State var storyPage: StoryPage = StoryPage(backgroundPath: .catalogedAsset(named: "livro-1"), elements: [], history: StoryPageHistory())
     @Environment(\.presentationMode) var presentationMode
     
@@ -26,31 +26,31 @@ struct CoverMenu: View {
         
         ZStack {
             HStack {
-                                
-                                Spacer()
-                                
-                                VStack {
-                                
-                                NavigationLink(
-                                    
-                                    destination: ChallengesView(),
-                                    label: {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(Color("DarkPurple"))
-                                            .font(.largeTitle)
-                                            .onTapGesture {
-                                                presentationMode.wrappedValue.dismiss()
-                                            }
-                                    })
-                                    .navigationBarBackButtonHidden(true)
-                                    .navigationBarHidden(true)
-                                    .navigationBarTitle("")
-                                    
-                                    Spacer()
-                                    
-                                }.padding(.top, UIScreen.main.bounds.height / 55)
-                                
-                            }.padding(.trailing, UIScreen.main.bounds.width / 40)
+                
+                Spacer()
+                
+                VStack {
+                    
+                    //                                NavigationLink(
+                    //
+                    //                                    destination: StoryOverview(),
+                    //                                    label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(Color("DarkPurple"))
+                        .font(.largeTitle)
+                        .onTapGesture {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    //                                    })
+                    //                                    .navigationBarBackButtonHidden(true)
+                    //                                    .navigationBarHidden(true)
+                    //                                    .navigationBarTitle("")
+                    
+                    Spacer()
+                    
+                }.padding(.top, UIScreen.main.bounds.height / 55)
+                
+            }.padding(.trailing, UIScreen.main.bounds.width / 40)
             ZStack {
                 
                 switch self.selectedDrawer {
@@ -68,7 +68,7 @@ struct CoverMenu: View {
                 case .textDrawer:
                     ElementDrawer(selectedArray: .array(elements: personArray), storyPage: $storyPage)
                 //acho que aqui tem que chamar um text field, nao sei
-                    
+                
                 }
                 
             }
@@ -94,8 +94,8 @@ struct CoverMenu: View {
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 switch self.selectedDrawer {
-                                    case .personDrawer: self.selectedDrawer = .none
-                                    default: self.selectedDrawer = .personDrawer
+                                case .personDrawer: self.selectedDrawer = .none
+                                default: self.selectedDrawer = .personDrawer
                                 }
                             }
                         
@@ -105,8 +105,8 @@ struct CoverMenu: View {
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 switch self.selectedDrawer {
-                                    case .sceneDrawer: self.selectedDrawer = .none
-                                    default: self.selectedDrawer = .sceneDrawer
+                                case .sceneDrawer: self.selectedDrawer = .none
+                                default: self.selectedDrawer = .sceneDrawer
                                 }
                             }
                         
@@ -116,8 +116,8 @@ struct CoverMenu: View {
                             .padding(.init(top: UIScreen.main.bounds.width / 25, leading: 0, bottom: UIScreen.main.bounds.width / 25, trailing: 0))
                             .onTapGesture {
                                 switch self.selectedDrawer {
-                                    case .textDrawer: self.selectedDrawer = .none
-                                    default: self.selectedDrawer = .textDrawer
+                                case .textDrawer: self.selectedDrawer = .none
+                                default: self.selectedDrawer = .textDrawer
                                 }
                             }.padding(.bottom, 180)
                         
