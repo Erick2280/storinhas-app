@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 class Story: ObservableObject {
     @Published var status: StoryStatus
@@ -153,6 +153,7 @@ extension PageElement: Hashable {
 enum ImagePath: Equatable, Hashable {
     case catalogedAsset(named: String)
     case catalogedAssetWithOverlaidText(named: String, overlaidText: String)
+    case externalImage(uiImage: UIImage)
 }
 
 enum StoryStatus {

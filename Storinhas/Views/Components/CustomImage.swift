@@ -13,6 +13,8 @@ func CustomImage(from imagePath: ImagePath) -> Image {
         return Image(name)
     case .catalogedAssetWithOverlaidText(let name, _):
         return Image(name)
+    case .externalImage(let uiImage):
+        return Image(uiImage: uiImage)
     }
 }
 
