@@ -15,20 +15,14 @@ struct StoryOverview: View {
     
     @ObservedObject var manager: Manager = Manager()
     @EnvironmentObject var pageManager: PageManager
-
-    
-    var thumbnailArray: [Image] = []
-    
-
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var story: Story
+    @EnvironmentObject var popUpManager: PopUpManager
     
     let layout = [
         
         GridItem(.flexible(), spacing: -UIScreen.main.bounds.height / 4.5), GridItem(.flexible(), spacing: -UIScreen.main.bounds.height / 4.5), GridItem(.flexible(), spacing: -UIScreen.main.bounds.height / 4.5), GridItem(.flexible())
     ]
-    
-    @EnvironmentObject var story: Story
     
     var body: some View {
         
@@ -75,7 +69,15 @@ struct StoryOverview: View {
                                         if manager.nextView == false && manager.coverView == false {
                                             manager.nextView = true
                                             manager.coverView = true
+                                            
+                                            manager.finishStoryView = false
+                                            manager.editorView = false
+                                            manager.storyOverView = false
                                         } else {
+                                            manager.finishStoryView = false
+                                            manager.editorView = false
+                                            manager.storyOverView = false
+                                            
                                             manager.coverView = true
                                             manager.nextView = true
                                         }
@@ -100,8 +102,14 @@ struct StoryOverview: View {
                                         destination: getDestination(),
                                         label: {
                                             ZStack {
+                                                Rectangle()
+                                                    .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
+                                                    .foregroundColor(.white)
+
+                                                
                                                 PageCanvas(storyPage: $story.pages[index], editable: false)
                                                     .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
+                                                    .padding(.trailing, UIScreen.main.bounds.width / 60)
                                                 
                                                 Button(action: {
                                                     print("alou meu bom")
@@ -110,14 +118,22 @@ struct StoryOverview: View {
                                                     if manager.nextView == false && manager.editorView == false {
                                                         manager.nextView = true
                                                         manager.editorView = true
+                                                        
+                                                        manager.finishStoryView = false
+                                                        manager.coverView = false
+                                                        manager.storyOverView = false
                                                     } else {
                                                         manager.editorView = true
                                                         manager.nextView = true
+                                                        
+                                                        manager.finishStoryView = false
+                                                        manager.coverView = false
+                                                        manager.storyOverView = false
                                                     }
                                                 }, label: {
                                                    Image("")
                                                         .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
-                                                        .border(Color.black, width: 1)
+
 
                                                 })
                                                     
@@ -181,7 +197,8 @@ struct StoryOverview: View {
                                     .font(.largeTitle)
                                     .onTapGesture {
                                         
-                                        presentationMode.wrappedValue.dismiss()
+                                        popUpManager.showPopUp = true
+//                                        presentationMode.wrappedValue.dismiss()
                                     }
                             })
                             .navigationBarBackButtonHidden(true)
@@ -190,11 +207,21 @@ struct StoryOverview: View {
                         
                         Spacer()
                         
-                    }.padding(.top, UIScreen.main.bounds.height / 50)
+                    }.padding(.top, UIScreen.main.bounds.height / 30)
                 }.padding(.trailing, UIScreen.main.bounds.width / 40)
+                
+                if popUpManager.showPopUp == true {
+                    saveOverlay(manager: Manager())
+
+                }
             }
+            .statusBar(hidden: true)
+            .background(Theming.gradients.background)
+            .ignoresSafeArea()
+            .onAppear(perform: {
+                popUpManager.showPopUp = false
+            })
         }
-//        .background(Theming.gradients.background)
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -208,11 +235,11 @@ struct StoryOverview: View {
     func getDestination() -> AnyView {
         
         if manager.coverView == true {
-            return AnyView(/*CoverMenu()*/Text("editor de capa"))
+            return AnyView(CoverMenu())
         } else if manager.editorView == true {
             return AnyView(ComponentMenu(pageManager: _pageManager, story: _story))
         } else if manager.finishStoryView == true {
-            return AnyView(StoriesView())
+            return AnyView(TabBarView(selectedIndex: 1, bookToggle: 1, pencilToggle: 0, crownToggle: 0, tabBarToggle: 0))
         } else {
             return AnyView(StoryOverview())
         }
@@ -233,6 +260,6 @@ class Manager: ObservableObject {
 struct StoryOverview_Previews: PreviewProvider {
     
     static var previews: some View {
-        StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8))
+        StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8)).environmentObject(PopUpManager(showPopUp: false))
     }
 }

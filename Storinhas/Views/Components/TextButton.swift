@@ -11,6 +11,7 @@ struct TextButton: View {
     @Binding var text: String
     
     var style: TextButtonStyle = .secondary
+    var padding: CGFloat = 8
     var action: (() -> Void)?
     
     var body: some View {
@@ -26,7 +27,7 @@ struct TextButton: View {
                         .foregroundColor(Color.white)
                 }
                 .padding()
-                .padding(.horizontal, 8)
+                .padding(.horizontal, padding)
                 .background(Theming.gradients.purple)
                 .cornerRadius(256)
             }
@@ -37,7 +38,7 @@ struct TextButton: View {
                         .foregroundColor(Color("Purple"))
                 }
                 .padding()
-                .padding(.horizontal, 8)
+                .padding(.horizontal, padding)
                 .overlay(
                     Capsule()
                         .stroke(Theming.gradients.purple, lineWidth: 4)

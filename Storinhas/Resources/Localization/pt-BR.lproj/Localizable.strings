@@ -8,8 +8,11 @@
 
 /* Actions */
 "ACTION_SKIP" = "Pular";
-"ACTION_SAVE" = "Salvar";
+"ACTION_SAVE" = "    Salvar    ";
+"ACTION_DONT_SAVE" = "Não salvar";
 "ACTION_NEXT" = "Próximo";
+"ACTION_KEEP_READING" = "Continuar lendo";
+"ACTION_GO_TO_EDITOR" = "Ir para o editor";
 "ACTION_FINISH_STORY" = "Finalizar história";
 "ACTION_EDIT_COVER" = "Editar \ncapa";
 "ACTION_CREATE_STORY" = "Criar nova história";
@@ -18,9 +21,15 @@
 "ACTION_REDO" = "Refazer";
 
 /* Onboarding */
-"ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! Bora soltar a imaginação?";
+"ONBOARDING_WELCOME" = "Olá! Boas vindas ao Storinhas! \nBora soltar a imaginação?";
 "ONBOARDING_EXPLANATION" = "Aqui você pode criar suas próprias histórias!";
 
 /* Dialogs */
+"EDITOR_TITLE" = "Editor de histórias";
+"CHALLENGES_TITLE" = "Desafios";
+"STORIES_TITLE" = "Histórias";
 "EDIT_TEXT" = "Editar texto";
-
+"SAVE_WARNING" = "Gostaria de salvar a história?";
+"EDIT_WARNING" = "Quer editar esta história?";
+"CHALLENGES_WIP_WARNING" = "Ops! A tela de Desafios ainda não está pronta, \nmas estamos trabalhando nisso! \n\nAtenção para a próxima atualização!";
+"STORIES_WIP_WARNING" = "Você ainda não tem nenhuma história! \nQue tal criar uma agora mesmo?";
