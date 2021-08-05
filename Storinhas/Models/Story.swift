@@ -6,9 +6,53 @@
 //
 
 import Foundation
+import CoreData
 import SwiftUI
 
-class Story: ObservableObject {
+class StoriesManager: ObservableObject {
+    var persistentContainer: NSPersistentContainer = {
+
+          let container = NSPersistentContainer(name: "DemoArtigo")
+          container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+              if let error = error as NSError? {
+                  fatalError("Unresolved error \(error), \(error.userInfo)")
+              }
+          })
+          return container
+      }()
+    @Published var stories: [Story] = []
+    
+    func fetch() {
+        do {
+            if let storiesContainer = try self.persistentContainer.viewContext.fetch(StoryContainer.fetchRequest()) as? [StoryContainer] {
+                for storyContainer in storiesContainer {
+                    stories.append(try! JSONDecoder().decode(Story.self, from: storyContainer.json!))
+                }
+            }
+        } catch {}
+    }
+    
+    func update() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoryContainer")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try persistentContainer.viewContext.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                persistentContainer.viewContext.delete(objectData)
+            }
+            
+            for story in stories {
+                let storyContainer: StoryContainer = StoryContainer()
+                storyContainer.json = try! JSONEncoder().encode(story)
+                persistentContainer.viewContext.insert(storyContainer)
+                try! persistentContainer.viewContext.save()
+            }
+        } catch {}
+    }
+}
+
+class Story: ObservableObject, Codable {
     @Published var status: StoryStatus
     @Published var pages: [StoryPage]
     @Published var orientation: StoryOrientation
@@ -24,9 +68,29 @@ class Story: ObservableObject {
             pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
         }
     }
+    
+    enum CodingKeys: CodingKey {
+        case status, pages, orientation, title
+    }
+     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.status, forKey: .status)
+        try container.encode(self.pages, forKey: .pages)
+        try container.encode(self.orientation, forKey: .orientation)
+        try container.encode(self.title, forKey: .title)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.status = try container.decode(StoryStatus.self, forKey: .status)
+        self.pages = try container.decode([StoryPage].self, forKey: .pages)
+        self.orientation = try container.decode(StoryOrientation.self, forKey: .orientation)
+        self.title = try container.decode(String.self, forKey: .title)
+    }
 }
 
-struct StoryPage {
+struct StoryPage: Codable {
     var backgroundPath: ImagePath?
     var elements: [PageElement]
     var history: StoryPageHistory
@@ -43,7 +107,7 @@ class PageManager: ObservableObject {
 
 }
 
-class StoryPageHistory: ObservableObject {
+class StoryPageHistory: ObservableObject, Codable {
     var undoStoryPages: [StoryPage]
     var redoStoryPages: [StoryPage]
     var undoAvailable: Bool
@@ -112,7 +176,7 @@ class StoryPageHistory: ObservableObject {
     }
 }
 
-struct PageElement {
+struct PageElement: Codable {
     var x: Double
     var y: Double
     var scale: Double
@@ -150,16 +214,105 @@ extension PageElement: Hashable {
     }
 }
 
-enum ImagePath: Equatable, Hashable {
+enum ImagePath: Equatable, Hashable, Codable {
     case catalogedAsset(named: String)
     case catalogedAssetWithOverlaidText(named: String, overlaidText: String)
     case externalImage(uiImage: UIImage)
+    
+    enum CodingKeys: CodingKey {
+        case catalogedAsset, catalogedAssetWithOverlaidText, externalImage
+    }
+    
+    func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            switch self {
+            case .catalogedAsset(let name):
+                try container.encode(name, forKey: .catalogedAsset)
+            case .catalogedAssetWithOverlaidText(let name, let overlaidText):
+                var nestedContainer = container.nestedUnkeyedContainer(forKey: .catalogedAssetWithOverlaidText)
+                try nestedContainer.encode(name)
+                try nestedContainer.encode(overlaidText)
+            case .externalImage(let uiImage):
+                try container.encode(uiImage, forKey: .catalogedAsset)
+            }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = container.allKeys.first
+        
+        switch key {
+        case .catalogedAsset:
+            let name = try container.decode(String.self, forKey: .catalogedAsset)
+            self = .catalogedAsset(named: name)
+        case .catalogedAssetWithOverlaidText:
+            var nestedContainer = try container.nestedUnkeyedContainer(forKey: .catalogedAssetWithOverlaidText)
+            let name = try nestedContainer.decode(String.self)
+            let overlaidText = try nestedContainer.decode(String.self)
+            self = .catalogedAssetWithOverlaidText(named: name, overlaidText: overlaidText)
+        case .externalImage:
+            let uiImage = try container.decode(UIImage.self, forKey: .externalImage)
+            self = .externalImage(uiImage: uiImage)
+        default:
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: "Unabled to decode enum."
+                )
+            )
+        }
+    }
 }
 
-enum StoryStatus {
+enum StoryStatus: String, Codable {
     case editing, draft, published
 }
 
-enum StoryOrientation {
+enum StoryOrientation: String, Codable {
     case portrait, landscape
+}
+
+enum ImageEncodingQuality {
+  case png
+  case jpeg(quality: CGFloat)
+}
+
+extension KeyedEncodingContainer {
+    mutating func encode(
+        _ value: UIImage,
+        forKey key: KeyedEncodingContainer.Key,
+        quality: ImageEncodingQuality = .png
+    ) throws {
+        let imageData: Data?
+        switch quality {
+        case .png:
+            imageData = value.pngData()
+        case .jpeg(let quality):
+            imageData = value.jpegData(compressionQuality: quality)
+        }
+        guard let data = imageData else {
+            throw EncodingError.invalidValue(
+                value,
+                EncodingError.Context(codingPath: [key], debugDescription: "Failed convert UIImage to data")
+            )
+        }
+        try encode(data, forKey: key)
+    }
+}
+
+extension KeyedDecodingContainer {
+    func decode(
+        _ type: UIImage.Type,
+        forKey key: KeyedDecodingContainer.Key
+    ) throws -> UIImage {
+        let imageData = try decode(Data.self, forKey: key)
+        if let image = UIImage(data: imageData) {
+            return image
+        } else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: [key], debugDescription: "Failed load UIImage from decoded data")
+            )
+        }
+    }
 }

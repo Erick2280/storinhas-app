@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A750710E269CC6880009BCCF /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710D269CC6880009BCCF /* Story.swift */; };
 		A7507110269CE1F10009BCCF /* Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = A750710F269CE1F10009BCCF /* Theming.swift */; };
+		A75E481126BC937A0090F269 /* Storinhas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A75E480F26BC937A0090F269 /* Storinhas.xcdatamodeld */; };
+		A75E481426BC93B20090F269 /* StoryContainer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75E481226BC93B20090F269 /* StoryContainer+CoreDataClass.swift */; };
+		A75E481526BC93B20090F269 /* StoryContainer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75E481326BC93B20090F269 /* StoryContainer+CoreDataProperties.swift */; };
 		A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A783924F2697715A0010BA01 /* StorinhasApp.swift */; };
 		A78392522697715A0010BA01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78392512697715A0010BA01 /* ContentView.swift */; };
 		A78392542697715C0010BA01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78392532697715C0010BA01 /* Assets.xcassets */; };
@@ -25,6 +28,7 @@
 		A7839278269773F20010BA01 /* LondrinaSolid-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7839274269773F20010BA01 /* LondrinaSolid-Black.ttf */; };
 		A783927B2697753A0010BA01 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A783927D2697753A0010BA01 /* Localizable.strings */; };
 		A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E8B8A3269E148B008299AF /* CustomImage.swift */; };
+		E55945A726A61A71004D5889 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55945A626A61A71004D5889 /* TabBarView.swift */; };
 		E583D30226B0A71100529E83 /* StoryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E583D30126B0A71100529E83 /* StoryOverview.swift */; };
 		FE2E50AE26A9F1CC00D1F03F /* PageCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2E50AD26A9F1CC00D1F03F /* PageCanvas.swift */; };
 		FE37B58F26B1F3160076D48E /* saveOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE37B58E26B1F3160076D48E /* saveOverlay.swift */; };
@@ -32,13 +36,15 @@
 		FE85204726B4714400F4E194 /* editOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE85204626B4714400F4E194 /* editOverlay.swift */; };
 		FE85204926B4730800F4E194 /* readOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE85204826B4730800F4E194 /* readOverlay.swift */; };
 		FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3301726A616E300987730 /* ComponentMenu.swift */; };
-		E55945A726A61A71004D5889 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55945A626A61A71004D5889 /* TabBarView.swift */; };
 		FECCB4DB26AF4A1700AC49B0 /* CoverMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECCB4DA26AF4A1700AC49B0 /* CoverMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A750710D269CC6880009BCCF /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		A750710F269CE1F10009BCCF /* Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theming.swift; sourceTree = "<group>"; };
+		A75E481026BC937A0090F269 /* Storinhas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storinhas.xcdatamodel; sourceTree = "<group>"; };
+		A75E481226BC93B20090F269 /* StoryContainer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryContainer+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A75E481326BC93B20090F269 /* StoryContainer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryContainer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A783924C2697715A0010BA01 /* Storinhas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storinhas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A783924F2697715A0010BA01 /* StorinhasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorinhasApp.swift; sourceTree = "<group>"; };
 		A78392512697715A0010BA01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +64,7 @@
 		A783927C2697753A0010BA01 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A783927E2697753F0010BA01 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A7E8B8A3269E148B008299AF /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
+		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E583D30126B0A71100529E83 /* StoryOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryOverview.swift; sourceTree = "<group>"; };
 		FE2E50AD26A9F1CC00D1F03F /* PageCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCanvas.swift; sourceTree = "<group>"; };
 		FE37B58E26B1F3160076D48E /* saveOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveOverlay.swift; sourceTree = "<group>"; };
@@ -65,9 +72,7 @@
 		FE85204626B4714400F4E194 /* editOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editOverlay.swift; sourceTree = "<group>"; };
 		FE85204826B4730800F4E194 /* readOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = readOverlay.swift; sourceTree = "<group>"; };
 		FEB3301726A616E300987730 /* ComponentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentMenu.swift; sourceTree = "<group>"; };
-		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		FECCB4DA26AF4A1700AC49B0 /* CoverMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverMenu.swift; sourceTree = "<group>"; };
-		E55945A626A61A71004D5889 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +159,6 @@
 			children = (
 				A783926D269773480010BA01 /* IconButton.swift */,
 				A783926F2697736C0010BA01 /* TextButton.swift */,
-				A750710B269CC5EA0009BCCF /* PageCanvas.swift */,
 				A7E8B8A3269E148B008299AF /* CustomImage.swift */,
 				E583D30126B0A71100529E83 /* StoryOverview.swift */,
 				FEB3301726A616E300987730 /* ComponentMenu.swift */,
@@ -193,6 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				A750710D269CC6880009BCCF /* Story.swift */,
+				A75E480F26BC937A0090F269 /* Storinhas.xcdatamodeld */,
+				A75E481226BC93B20090F269 /* StoryContainer+CoreDataClass.swift */,
+				A75E481326BC93B20090F269 /* StoryContainer+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -273,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A783926E269773480010BA01 /* IconButton.swift in Sources */,
+				A75E481526BC93B20090F269 /* StoryContainer+CoreDataProperties.swift in Sources */,
 				A7839266269772E20010BA01 /* ChallengesView.swift in Sources */,
 				FE85204926B4730800F4E194 /* readOverlay.swift in Sources */,
 				FE85204726B4714400F4E194 /* editOverlay.swift in Sources */,
@@ -280,13 +288,14 @@
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
 				E55945A726A61A71004D5889 /* TabBarView.swift in Sources */,
 				A7E8B8A4269E148B008299AF /* CustomImage.swift in Sources */,
-				A750710C269CC5EA0009BCCF /* PageCanvas.swift in Sources */,
 				A78392522697715A0010BA01 /* ContentView.swift in Sources */,
 				A78392502697715A0010BA01 /* StorinhasApp.swift in Sources */,
 				A78392702697736C0010BA01 /* TextButton.swift in Sources */,
 				A783926A269773160010BA01 /* StoryEditorView.swift in Sources */,
 				A7839264269772C90010BA01 /* StoriesView.swift in Sources */,
+				A75E481126BC937A0090F269 /* Storinhas.xcdatamodeld in Sources */,
 				FEB3301826A616E300987730 /* ComponentMenu.swift in Sources */,
+				A75E481426BC93B20090F269 /* StoryContainer+CoreDataClass.swift in Sources */,
 				A78392682697730B0010BA01 /* StoryCreationAssistantView.swift in Sources */,
 				FE2E50AE26A9F1CC00D1F03F /* PageCanvas.swift in Sources */,
 				FE56A16E26A7552C00752E7E /* ElementDrawer.swift in Sources */,
@@ -494,6 +503,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A75E480F26BC937A0090F269 /* Storinhas.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A75E481026BC937A0090F269 /* Storinhas.xcdatamodel */,
+			);
+			currentVersion = A75E481026BC937A0090F269 /* Storinhas.xcdatamodel */;
+			path = Storinhas.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A78392442697715A0010BA01 /* Project object */;
 }
