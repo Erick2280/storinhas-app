@@ -18,6 +18,7 @@ struct StoryOverview: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var story: Story
     @EnvironmentObject var popUpManager: PopUpManager
+    @EnvironmentObject var savedStoriesManager: SavedStoriesManager
     
     let layout = [
         
@@ -43,10 +44,10 @@ struct StoryOverview: View {
                                 label: {
                                     ZStack {
                                         Rectangle()
-
+                                            
                                             .frame(width: UIScreen.main.bounds.height / 5, height: UIScreen.main.bounds.width / 5, alignment: .center)
                                             .frame(width: UIScreen.main.bounds.height / 5, height: UIScreen.main.bounds.width / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-
+                                            
                                             .foregroundColor(Color.init(red: 225/255, green: 225/255, blue: 225/255))
                                             .border(Color.init(red: 196/255, green: 196/255, blue: 196/255), width: 5)
                                             .cornerRadius(5)
@@ -88,13 +89,13 @@ struct StoryOverview: View {
                                 .navigationBarTitle("")
                         }
                     }
-
+                    
                     Spacer()
                     
                     //PÁGINAS DA HISTÓRIA
                     Group {
                         LazyVGrid(columns: layout, spacing: UIScreen.main.bounds.height / 20) {
-
+                            
                             ForEach(Array(zip(story.pages.indices, story.pages)), id: \.0) { index, page in
                                 HStack(alignment: .center, spacing: UIScreen.main.bounds.width) {
                                     
@@ -105,7 +106,7 @@ struct StoryOverview: View {
                                                 Rectangle()
                                                     .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
                                                     .foregroundColor(.white)
-
+                                                
                                                 
                                                 PageCanvas(storyPage: $story.pages[index], editable: false)
                                                     .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
@@ -131,12 +132,12 @@ struct StoryOverview: View {
                                                         manager.storyOverView = false
                                                     }
                                                 }, label: {
-                                                   Image("")
+                                                    Image("")
                                                         .frame(width: UIScreen.main.bounds.width / 6, height: UIScreen.main.bounds.height / 6, alignment: .center)
-
-
-                                                })
                                                     
+                                                    
+                                                })
+                                                
                                             }
                                         })
                                 }
@@ -159,107 +160,116 @@ struct StoryOverview: View {
                                     manager.editorView = false
                                     manager.storyOverView = false
                                     
-                                } else {
-                                    
-                                    manager.coverView = false
-                                    manager.editorView = false
-                                    manager.storyOverView = false
-                                    
-                                    manager.finishStoryView = true
-                                    manager.nextView = true
-  
-                                }
-                            })
-                                
-                        })
+                                } else if manager.nextView == false && manager.finishStoryView == false && savedStoriesManager.noStoriesSaved == true {
+                                    savedStoriesManager.noStoriesSaved = false
 
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                        .navigationBarTitle("")
-                    
-                    Spacer()
-                    
-                }
-                
-                //SAIR DO EDITOR
-                HStack {
-                    
-                    Spacer()
-                    
-                    VStack {
-                        
-                        NavigationLink(
-                            
-                            destination: getDestination(),
-                            label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(Color("DarkPurple"))
-                                    .font(.largeTitle)
-                                    .onTapGesture {
+                                        manager.nextView = true
+                                        manager.finishStoryView = true
                                         
-                                        popUpManager.showPopUp = true
-//                                        presentationMode.wrappedValue.dismiss()
+                                        manager.coverView = false
+                                        manager.editorView = false
+                                        manager.storyOverView = false
+                                    } else {
+                                        
+                                        manager.coverView = false
+                                        manager.editorView = false
+                                        manager.storyOverView = false
+                                        
+                                        manager.finishStoryView = true
+                                        manager.nextView = true
+                                        
                                     }
+                                })
+                                
                             })
+                            
                             .navigationBarBackButtonHidden(true)
                             .navigationBarHidden(true)
                             .navigationBarTitle("")
+                            
+                            Spacer()
+                            
+                        }
                         
-                        Spacer()
+                        //SAIR DO EDITOR
+                        HStack {
+                            
+                            Spacer()
+                            
+                            VStack {
+                                
+                                NavigationLink(
+                                    
+                                    destination: getDestination(),
+                                    label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundColor(Color("DarkPurple"))
+                                            .font(.largeTitle)
+                                            .onTapGesture {
+                                                
+                                                popUpManager.showPopUp = true
+                                                //                                        presentationMode.wrappedValue.dismiss()
+                                            }
+                                    })
+                                    .navigationBarBackButtonHidden(true)
+                                    .navigationBarHidden(true)
+                                    .navigationBarTitle("")
+                                
+                                Spacer()
+                                
+                            }.padding(.top, UIScreen.main.bounds.height / 30)
+                        }.padding(.trailing, UIScreen.main.bounds.width / 40)
+                    
+                    if popUpManager.showPopUp == true {
+                        saveOverlay(manager: Manager())
                         
-                    }.padding(.top, UIScreen.main.bounds.height / 30)
-                }.padding(.trailing, UIScreen.main.bounds.width / 40)
-                
-                if popUpManager.showPopUp == true {
-                    saveOverlay(manager: Manager())
-
+                        }
                 }
+                .statusBar(hidden: true)
+                .background(Theming.gradients.background)
+                .ignoresSafeArea()
+                .onAppear(perform: {
+                    popUpManager.showPopUp = false
+                })
             }
-            .statusBar(hidden: true)
-            .background(Theming.gradients.background)
-            .ignoresSafeArea()
-            .onAppear(perform: {
-                popUpManager.showPopUp = false
+            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarTitle("", displayMode: .inline)
+            .fullScreenCover(isPresented: $manager.nextView, content: {
+                getDestination()
+                
             })
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitle("", displayMode: .inline)
-        .fullScreenCover(isPresented: $manager.nextView, content: {
-            getDestination()
-            
-        })
-    }
-    
-    func getDestination() -> AnyView {
         
-        if manager.coverView == true {
-            return AnyView(CoverMenu())
-        } else if manager.editorView == true {
-            return AnyView(ComponentMenu(pageManager: _pageManager, story: _story))
-        } else if manager.finishStoryView == true {
-            return AnyView(TabBarView(selectedIndex: 1, bookToggle: 1, pencilToggle: 0, crownToggle: 0, tabBarToggle: 0))
-        } else {
-            return AnyView(StoryOverview())
+        func getDestination() -> AnyView {
+            
+            if manager.coverView == true {
+                return AnyView(CoverMenu())
+            } else if manager.editorView == true {
+                return AnyView(ComponentMenu(pageManager: _pageManager, story: _story))
+            } else if manager.finishStoryView == true {
+                return AnyView(TabBarView(selectedIndex: 1, bookToggle: 1, pencilToggle: 0, crownToggle: 0, tabBarToggle: 0))
+            } else {
+                return AnyView(StoryOverview())
+            }
+            
         }
         
     }
     
-}
-
-class Manager: ObservableObject {
-    
-    @Published var nextView: Bool = false
-    @Published var coverView: Bool = false
-    @Published var editorView: Bool = false
-    @Published var finishStoryView: Bool = false
-    @Published var storyOverView: Bool = false
-}
-
-struct StoryOverview_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8)).environmentObject(PopUpManager(showPopUp: false))
+    class Manager: ObservableObject {
+        
+        @Published var nextView: Bool = false
+        @Published var coverView: Bool = false
+        @Published var editorView: Bool = false
+        @Published var finishStoryView: Bool = false
+        @Published var storyOverView: Bool = false
     }
-}
+    
+    struct StoryOverview_Previews: PreviewProvider {
+        
+        static var previews: some View {
+            StoryOverview().environmentObject(PageManager(pageIndex: 0)).environmentObject(Story(title: "", orientation: .landscape, amountOfPages: 8)).environmentObject(PopUpManager(showPopUp: false)).environmentObject(SavedStoriesManager(noStoriesSaved: true))
+        }
+    }

@@ -14,3 +14,12 @@ class PopUpManager: ObservableObject {
         self.showPopUp = false
     }
 }
+
+class SavedStoriesManager: ObservableObject {
+    
+    @Published var noStoriesSaved: Bool
+    
+    init(noStoriesSaved: Bool) {
+        self.noStoriesSaved = true
+    }
+}
