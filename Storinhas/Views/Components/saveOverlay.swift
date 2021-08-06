@@ -11,6 +11,7 @@ struct saveOverlay: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var popUpManager: PopUpManager
+    @EnvironmentObject var story: Story
     @ObservedObject var manager: Manager
     @EnvironmentObject var storiesManager: StoriesManager
     
@@ -43,7 +44,7 @@ struct saveOverlay: View {
                             //a historia nao é salva para visualização
                             manager.nextView = true
                             savedStory = false
-                            
+                            story.reset()
                         })
                         .padding()
                     })
@@ -59,6 +60,12 @@ struct saveOverlay: View {
                     label: {
                         TextButton(text: .constant("ACTION_SAVE"), style: .primary, padding: 30, action: {
                             //a historia fica visualizavel na home e tambem possível de ler
+                            storiesManager.stories.append(story)
+                            storiesManager.update()
+                            manager.nextView = true
+                            savedStory = false
+                            story.reset()
+                            
                             /*
                             if savedStoriesManager.noStoriesSaved == true {
                                 savedStoriesManager.noStoriesSaved = false

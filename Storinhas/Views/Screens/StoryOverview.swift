@@ -18,7 +18,7 @@ struct StoryOverview: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var story: Story
     @EnvironmentObject var popUpManager: PopUpManager
-    @EnvironmentObject var StoriesManager: StoriesManager
+    @EnvironmentObject var storiesManager: StoriesManager
     
     let layout = [
         
@@ -152,6 +152,10 @@ struct StoryOverview: View {
                         destination: getDestination(),
                         label: {
                             TextButton(text: Binding.constant("ACTION_FINISH_STORY"), style: .primary, action: {
+                                storiesManager.stories.append(story)
+                                storiesManager.update()
+                                story.reset()
+                                
                                 if manager.nextView == false && manager.finishStoryView == false {
                                     manager.nextView = true
                                     manager.finishStoryView = true

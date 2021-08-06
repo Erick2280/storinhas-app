@@ -14,6 +14,10 @@ struct StorinhasApp: App {
     var popUpManager: PopUpManager = PopUpManager(showPopUp: false)
     var storiesManager: StoriesManager = StoriesManager()
     
+    init() {
+        storiesManager.fetch()
+    }
+    
     var body: some Scene {
         WindowGroup {
 

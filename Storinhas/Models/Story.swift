@@ -12,7 +12,7 @@ import SwiftUI
 class StoriesManager: ObservableObject {
     var persistentContainer: NSPersistentContainer = {
 
-          let container = NSPersistentContainer(name: "DemoArtigo")
+          let container = NSPersistentContainer(name: "Storinhas")
           container.loadPersistentStores(completionHandler: { (storeDescription, error) in
               if let error = error as NSError? {
                   fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -43,9 +43,8 @@ class StoriesManager: ObservableObject {
             }
             
             for story in stories {
-                let storyContainer: StoryContainer = StoryContainer()
+                let storyContainer: StoryContainer = StoryContainer(context: persistentContainer.viewContext)
                 storyContainer.json = try! JSONEncoder().encode(story)
-                persistentContainer.viewContext.insert(storyContainer)
                 try! persistentContainer.viewContext.save()
             }
         } catch {}
@@ -65,7 +64,24 @@ class Story: ObservableObject, Codable {
         self.title = title
         
         for _ in 0..<amountOfPages {
-            pages.append(StoryPage(backgroundPath: nil, elements: [], history: StoryPageHistory()))
+            let history = StoryPageHistory()
+            let element = StoryPage(backgroundPath: nil, elements: [], history: history)
+            element.history.backup(element)
+            pages.append(element)
+        }
+    }
+    
+    func reset(title: String = "", orientation: StoryOrientation = .landscape, amountOfPages: Int = 8) {
+        self.status = .editing
+        self.pages = []
+        self.orientation = .landscape
+        self.title = title
+        
+        for _ in 0..<amountOfPages {
+            let history = StoryPageHistory()
+            let element = StoryPage(backgroundPath: nil, elements: [], history: history)
+            element.history.backup(element)
+            pages.append(element)
         }
     }
     
@@ -95,6 +111,28 @@ struct StoryPage: Codable {
     var elements: [PageElement]
     var history: StoryPageHistory
 
+    enum CodingKeys: CodingKey {
+        case backgroundPath, elements
+    }
+     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.backgroundPath, forKey: .backgroundPath)
+        try container.encode(self.elements, forKey: .elements)
+    }
+    
+    init(backgroundPath: ImagePath?, elements: [PageElement], history: StoryPageHistory) {
+        self.backgroundPath = backgroundPath
+        self.elements = elements
+        self.history = history
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.backgroundPath = try container.decode(ImagePath?.self, forKey: .backgroundPath)
+        self.elements = try container.decode([PageElement].self, forKey: .elements)
+        self.history = StoryPageHistory()
+    }
 }
 
 class PageManager: ObservableObject {

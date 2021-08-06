@@ -43,7 +43,6 @@ struct StoriesView: View {
                 .padding(.leading, UIScreen.main.bounds.width / 15)
             } else {
                 
-                
                 Text("grid com hsitórias salvas")
                 
             }

@@ -35,6 +35,44 @@ struct ComponentMenu: View {
         NavigationView {
             ZStack {
                 
+                HStack {
+                    Button(action: {
+                        //pagina anterior
+                        if pageManager.pageIndex == 0 {
+                            print("error")
+                        } else {
+                            pageManager.pageIndex -= 1
+                            print(pageManager.pageIndex)
+                        }
+                        
+                    }, label: {
+                        Image("previousPage")
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                            .padding(.leading, UIScreen.main.bounds.width / 7.5)
+                    })
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        //proxima pagina
+                        if pageManager.pageIndex == story.pages.count - 1 {
+                            print("error")
+                        } else {
+                            pageManager.pageIndex += 1
+                            print(pageManager.pageIndex)
+                        }
+                        
+                    }, label: {
+                        Image("nextPage")
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
+                            .padding(.trailing, UIScreen.main.bounds.width / 90)
+                    })
+                    
+                }
+                .padding(.bottom, UIScreen.main.bounds.height / 4.5)
+                
                 ZStack {
                     
                     switch self.selectedDrawer {
@@ -126,7 +164,8 @@ struct ComponentMenu: View {
                                     Image(systemName: "arrow.uturn.left.circle.fill")
                                         .resizable()
                                         .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
-                                }).disabled(!storyPage.history.undoAvailable).padding(.horizontal, 8.0)
+                                }).disabled(!pageCanvas.storyPage.history.undoAvailable)
+                                .padding(.horizontal, 8.0)
                                 
                                 Button(action: {
                                     pageCanvas.redo()
@@ -134,7 +173,8 @@ struct ComponentMenu: View {
                                     Image(systemName: "arrow.uturn.right.circle.fill")
                                         .resizable()
                                         .frame(width: UIScreen.main.bounds.height / 25, height: UIScreen.main.bounds.height / 25, alignment: .center)
-                                }).disabled(!storyPage.history.redoAvailable).padding(.horizontal, 8.0)
+                                }).disabled(!pageCanvas.storyPage.history.redoAvailable)
+                                .padding(.horizontal, 8.0)
                             }
 
 
@@ -189,45 +229,6 @@ struct ComponentMenu: View {
                     }.padding(.top, UIScreen.main.bounds.height / 30)
                     
                 }.padding(.trailing, UIScreen.main.bounds.width / 60)
-                
-                HStack {
-                    Button(action: {
-                        //pagina anterior
-                        if pageManager.pageIndex == 0 {
-                            print("error")
-                        } else {
-                            pageManager.pageIndex -= 1
-                            print(pageManager.pageIndex)
-                        }
-                        
-                    }, label: {
-                        Image("previousPage")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                            .padding(.leading, UIScreen.main.bounds.width / 7.5)
-                    })
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        //proxima pagina
-                        if pageManager.pageIndex == story.pages.count - 1 {
-                            print("error")
-                        } else {
-                            pageManager.pageIndex += 1
-                            print(pageManager.pageIndex)
-                        }
-                        
-                    }, label: {
-                        Image("nextPage")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 20, height: UIScreen.main.bounds.width / 20, alignment: .center)
-                            .padding(.trailing, UIScreen.main.bounds.width / 90)
-                    })
-                    
-                }
-                .padding(.bottom, UIScreen.main.bounds.height / 4.5)
-                
                 
             }
             .edgesIgnoringSafeArea(.all)
