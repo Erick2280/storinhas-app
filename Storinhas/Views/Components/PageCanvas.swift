@@ -156,27 +156,27 @@ struct PageCanvas: View {
                     }
                 }
             }
-            .onDrop(of: [.image], isTargeted: $isDropping, perform: {itemProviders, coordinates in
-                var result = false
-                  
-                for provider in itemProviders {
-                  if provider.canLoadObject(ofClass: UIImage.self) {
-                    result = true
-                    provider.loadObject(ofClass: UIImage.self) { image, error in
-                        if let _ = image as? UIImage {
-
-                            DispatchQueue.main.async {
-                                storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath: .externalImage(uiImage: image as! UIImage)))
-                            }
-                        }
-                    }
-                  }
-                }
-                return result
-            })
             .overlay(textEditingOverlay)
             .frame(width: metrics.size.width, height: metrics.size.height)
         }
+        .onDrop(of: [.image], isTargeted: $isDropping, perform: {itemProviders, coordinates in
+            var result = false
+              
+            for provider in itemProviders {
+              if provider.canLoadObject(ofClass: UIImage.self) {
+                result = true
+                provider.loadObject(ofClass: UIImage.self) { image, error in
+                    if let _ = image as? UIImage {
+
+                        DispatchQueue.main.async {
+                            storyPage.elements.append(PageElement(x: 0, y: 0, scale: 0.1, imagePath: .externalImage(uiImage: image as! UIImage)))
+                        }
+                    }
+                }
+              }
+            }
+            return result
+        })
     }
     
     var textEditingOverlay: some View {
